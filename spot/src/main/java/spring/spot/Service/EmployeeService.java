@@ -3,12 +3,11 @@ package spring.spot.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.Entity.Employee;
-import spring.spot.Exception.EmployeeException;
+import spring.spot.Key.EmployeeKey;
 import spring.spot.Repository.EmployeeRepository;
 
-import java.util.List;
-import java.util.Optional;
 
+import java.util.List;
 @Service
 public class EmployeeService {
 
@@ -20,8 +19,8 @@ public class EmployeeService {
     }
 
 
-    public Employee createEmployee(Employee emp) {
-        return employeeRepository.save(emp);
+    public Employee createEmployee(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
 
@@ -29,26 +28,17 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee getEmployeeById(int id) {
-        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
-        if (!optionalEmployee.isPresent())
-            throw new EmployeeException("No such employee found");
-        return employeeRepository.findById(id).get();
+    public List<Employee> getEmployeeById(int id) {
+        return employeeRepository.findByEmployeeKeyEmpId(id);
+    }
+
+    public Employee findByKeyFirstName(int id, String firstName) {
+        return employeeRepository.findByEmployeeKeyEmpIdAndEmployeeKeyFirstName(id, firstName);
+    }
+
+    public Employee updateEmployeeById(int id,Employee employee) {
+        return employeeRepository.save(employee);
     }
 
 
-    public Employee updateEmployeeById(int id, Employee emp) {
-        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
-        if (!optionalEmployee.isPresent())
-            throw new EmployeeException("No such employee found");
-        emp.setEmpId(id);
-        return employeeRepository.save(emp);
-    }
-
-    public void deleteEmployeeById(int id) {
-        Optional<Employee> optionalUser = employeeRepository.findById(id);
-        if (!optionalUser.isPresent())
-            throw new EmployeeException("No such employee found");
-        employeeRepository.deleteById(id);
-    }
 }

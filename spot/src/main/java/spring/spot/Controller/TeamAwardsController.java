@@ -2,11 +2,13 @@ package spring.spot.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import spring.spot.Entity.Employee;
 import spring.spot.Entity.TeamAwards;
+import spring.spot.Key.TeamAwardsKey;
 import spring.spot.Service.TeamAwardsService;
 
 import java.util.List;
-
+@RequestMapping
 @RestController
 public class TeamAwardsController {
 
@@ -19,18 +21,19 @@ public class TeamAwardsController {
 
     @GetMapping("/teamawards")
     public List<TeamAwards> getAllTeamAwards() {
-
         return (List<TeamAwards>) teamAwardsService.getAllTeamAwards();
     }
 
 
     @GetMapping(value = "/teamawards/{id}")
-    public TeamAwards getTeamAwardsById(@PathVariable("id") int id) {
+    public List<TeamAwards> getTeamAwardsById(@PathVariable("id") int id) {
         return teamAwardsService.getTeamAwardsById(id);
     }
 
-//    @GetMapping(value = "/teamawards/{periodname")
-//    public TeamAwards getTeamAwardsByName(@PathVariable("periodname") String periodname){ return teamAwardsService.getTeamAwardsByName(periodname);}
+    @GetMapping (value="/teamawards/{id}/{periodName}")
+    public TeamAwards findByTeamAwardsKeyPeriodName(@PathVariable("id") int id, @PathVariable("periodName") String periodName){
+        return teamAwardsService.findByTeamAwardsKeyPeriodName(id, periodName);
+    }
 
 
     @PostMapping("/teamawards")
@@ -44,10 +47,4 @@ public class TeamAwardsController {
         return teamAwardsService.updateTeamAwardsById(id,teamAwards);
     }
 
-
-    @DeleteMapping(value = "/teamawards/{id}")
-    public String deleteTeamAwardsById(@PathVariable("id") int id) {
-        teamAwardsService.deleteTeamAwardsById(id);
-        return "TeamAward with id " + id + " has been deleted!";
-    }
 }

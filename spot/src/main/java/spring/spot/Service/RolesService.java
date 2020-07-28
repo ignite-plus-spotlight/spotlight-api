@@ -29,26 +29,16 @@ public class RolesService {
         return rolesRepository.findAll();
     }
 
-    public Roles getRolesByName(String name) {
-        Optional<Roles> optionalRoles = rolesRepository.findById(name);
-        if (!optionalRoles.isPresent())
-            throw new RolesException("No such roles found");
-        return rolesRepository.findById(name).get();
+    public List<Roles> getRolesByName(String name) {
+        List<Roles> optionalRoles = rolesRepository.findByRolesKeyRoleName(name);
+        if (optionalRoles == null)
+            throw new RolesException("No such role found");
+        return rolesRepository.findByRolesKeyRoleName(name);
     }
 
 
     public Roles updateRolesByName(String name, Roles roles) {
-        Optional<Roles> optionalRoles = rolesRepository.findById(name);
-        if (!optionalRoles.isPresent())
-            throw new RolesException("No such roles found");
-        roles.setRole_name(name);
         return rolesRepository.save(roles);
     }
 
-    public void deleteRolesByName(String name) {
-        Optional<Roles> optionalRoles = rolesRepository.findById(name);
-        if (!optionalRoles.isPresent())
-            throw new RolesException("No such roles found");
-        rolesRepository.deleteById(name);
-    }
 }

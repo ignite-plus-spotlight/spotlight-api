@@ -21,20 +21,18 @@ public class TeamController {
 
     @GetMapping("/team")
     public List<Team> getAllTeam() {
-
         return (List<Team>) teamService.getAllTeam();
     }
 
 
     @GetMapping(value = "/team/{id}")
-    public Team getTeamById(@PathVariable("id") int id) {
+    public List<Team> getTeamById(@PathVariable("id") int id) {
         return teamService.getTeamById(id);
     }
 
 
     @PostMapping("/team")
     public Team createTeam(@RequestBody Team team) {
-
         return teamService.createTeam(team);
     }
 
@@ -44,10 +42,4 @@ public class TeamController {
         return teamService.updateTeamById(id,team);
     }
 
-
-    @DeleteMapping(value = "/team/{id}")
-    public String deleteTeamById(@PathVariable("id") int id) {
-        teamService.deleteTeamById(id);
-        return "Team with id " + id + " has been deleted!";
-    }
 }

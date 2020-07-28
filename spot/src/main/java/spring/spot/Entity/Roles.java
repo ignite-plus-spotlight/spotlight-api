@@ -1,39 +1,24 @@
 package spring.spot.Entity;
 
-import org.apache.tinkerpop.shaded.kryo.NotNull;
-import org.springframework.data.annotation.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+import spring.spot.Key.RolesKey;
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table()
 public class Roles {
 
-    @Id
-    @NotNull
-    @Column()
-    private String role_name;
+    @PrimaryKey
+    private RolesKey rolesKey;
+
     @Column
     private String description;
 
-    public Roles(String role_name, String description) {
-        this.role_name = role_name;
-        this.description = description;
-    }
 
-    public String getRole_name() {
-        return role_name;
-    }
-
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

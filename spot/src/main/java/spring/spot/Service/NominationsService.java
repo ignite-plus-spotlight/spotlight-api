@@ -2,6 +2,7 @@ package spring.spot.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import spring.spot.Entity.Employee;
 import spring.spot.Entity.Nominations;
 import spring.spot.Exception.NominationsException;
 import spring.spot.Repository.NominationsRepository;
@@ -29,26 +30,18 @@ public class NominationsService {
         return nominationsRepository.findAll();
     }
 
-    public Nominations getNominationsById(int id) {
-        Optional<Nominations> optionalNominations = nominationsRepository.findById(id);
-        if (!optionalNominations.isPresent())
-            throw new NominationsException("No such employee found");
-        return nominationsRepository.findById(id).get();
+    public List<Nominations> getNominationsById(int id) {
+
+        return nominationsRepository.findByNominationsKeyNominee(id);
+    }
+
+    public Nominations findByKeyPeriodName(int id, String periodName) {
+        return nominationsRepository.findByNominationsKeyNomineeAndNominationsKeyPeriodName(id, periodName);
+    }
+
+    public Nominations updateNominationsById(int id, Nominations nominations) {
+        return nominationsRepository.save(nominations);
     }
 
 
-    public Nominations updateNominationsById(int id, Nominations nominee) {
-        Optional<Nominations> optionalNominations = nominationsRepository.findById(id);
-        if (!optionalNominations.isPresent())
-            throw new NominationsException("No such nominee found");
-        nominee.setNominee(id);
-        return nominationsRepository.save(nominee);
-    }
-
-    public void deleteNominationsById(int id) {
-        Optional<Nominations> optionalUser = nominationsRepository.findById(id);
-        if (!optionalUser.isPresent())
-            throw new NominationsException("No such nominee found");
-        nominationsRepository.deleteById(id);
-    }
 }

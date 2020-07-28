@@ -3,12 +3,14 @@ package spring.spot.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import spring.spot.Entity.Employee;
+import spring.spot.Key.EmployeeKey;
 import spring.spot.Service.EmployeeService;
 
 import java.util.List;
-
+@RequestMapping
 @RestController
 public class EmployeeController {
+    EmployeeKey employeeKey;
 
     @Autowired
     private EmployeeService employeeService;
@@ -25,33 +27,28 @@ public class EmployeeController {
 
     @GetMapping("/employee")
     public List<Employee> getAllEmployee() {
-
         return (List<Employee>) employeeService.getAllEmployee();
     }
 
 
     @GetMapping(value = "/employee/{id}")
-    public Employee getEmployeeById(@PathVariable("id") int id) {
+    public List<Employee> getEmployeeById(@PathVariable("id") int id) {
         return employeeService.getEmployeeById(id);
     }
 
+    @GetMapping (value="/employee/{id}/{firstName}")
+    public Employee findByKeyFirstName(@PathVariable("id") int id, @PathVariable("firstName") String firstName){
+        return employeeService.findByKeyFirstName(id, firstName);
+    }
 
     @PostMapping("/employee")
-    public Employee createEmployee(@RequestBody Employee emp) {
-
-        return employeeService.createEmployee(emp);
+    public Employee createEmployee(@RequestBody Employee employee) {
+        return employeeService.createEmployee(employee);
     }
 
 
     @PutMapping(value = "/employee/{id}")
-    public Employee UpdateEmployeeById(@PathVariable("id") int id, @RequestBody Employee emp) {
-        return employeeService.updateEmployeeById(id,emp);
-    }
-
-
-    @DeleteMapping(value = "/employee/{id}")
-    public String deleteEmployeeById(@PathVariable("id") int id) {
-        employeeService.deleteEmployeeById(id);
-        return "Employee with id " + id + " has been deleted!";
+    public Employee UpdateEmployeeById(@PathVariable("id") int id, @RequestBody Employee employee) {
+        return employeeService.updateEmployeeById(id,employee);
     }
 }

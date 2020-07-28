@@ -20,20 +20,18 @@ public class RolesController {
 
     @GetMapping("/roles")
     public List<Roles> getAllRoles() {
-
         return (List<Roles>) rolesService.getAllRoles();
     }
 
 
     @GetMapping(value = "/roles/{name}")
-    public Roles getRolesById(@PathVariable("name") String name) {
+    public List<Roles> getRolesById(@PathVariable("name") String name) {
         return rolesService.getRolesByName(name);
     }
 
 
     @PostMapping("/roles")
     public Roles createRoles(@RequestBody Roles roles) {
-
         return rolesService.createRoles(roles);
     }
 
@@ -44,10 +42,5 @@ public class RolesController {
     }
 
 
-    @DeleteMapping(value = "/roles/{name}")
-    public String deleteRolesByName(@PathVariable("id") String name) {
-        rolesService.deleteRolesByName(name);
-        return "Roles with name " + name + " has been deleted!";
-    }
 }
 

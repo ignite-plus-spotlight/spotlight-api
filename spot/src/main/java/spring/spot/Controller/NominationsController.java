@@ -2,6 +2,7 @@ package spring.spot.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import spring.spot.Entity.Employee;
 import spring.spot.Entity.Nominations;
 import spring.spot.Service.NominationsService;
 
@@ -25,27 +26,24 @@ public class NominationsController {
 
 
     @GetMapping(value = "/nominations/{id}")
-    public Nominations getNominationsById(@PathVariable("id") int id) {
+    public List<Nominations> getNominationsById(@PathVariable("id") int id) {
         return nominationsService.getNominationsById(id);
     }
 
+    @GetMapping (value="/nominations/{id}/{periodName}")
+    public Nominations findByKeyPeriodName(@PathVariable("id") int id, @PathVariable("periodName") String periodName){
+        return nominationsService.findByKeyPeriodName(id, periodName);
+    }
 
     @PostMapping("/nominations")
-    public Nominations createNominations(@RequestBody Nominations nominee) {
-
-        return nominationsService.createNominations(nominee);
+    public Nominations createNominations(@RequestBody Nominations nominations) {
+        return nominationsService.createNominations(nominations);
     }
 
 
     @PutMapping(value = "/nominations/{id}")
-    public Nominations UpdateNominationsById(@PathVariable("id") int id, @RequestBody Nominations nominee) {
-        return nominationsService.updateNominationsById(id,nominee);
+    public Nominations UpdateNominationsById(@PathVariable("id") int id, @RequestBody Nominations nominations) {
+        return nominationsService.updateNominationsById(id,nominations);
     }
 
-
-    @DeleteMapping(value = "/nominations/{id}")
-    public String deleteNominationsById(@PathVariable("id") int id) {
-        nominationsService.deleteNominationsById(id);
-        return "Nomination with id " + id + " has been deleted!";
-    }
 }
