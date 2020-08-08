@@ -31,17 +31,17 @@ public class EmployeeService {
     }
 
     public Employee createEmployee(Employee emp) {
+        String id = emp.getEmpId();
+        Employee employee = employeeRepository.findByEmpId(id).get(0);
+        if (employee == null)
         return employeeRepository.save(emp);
+        else
+            return null;
     }
 
     public List<Employee> getAllEmployee() {
         return employeeRepository.findAll();
     }
-
-//    Employee employee = employeeRepository.findById(id)
-//            .orElseThrow(() -> new ResourceNotFound("Employee not found for this id :: " + id));
-//        return ResponseEntity.ok().body(employee);
-    //return new ResponseEntity<>(new ResponseModel("Admin not found"), HttpStatus.NOT_FOUND);
 
     public List<Employee> getEmployeeById(String id) throws ResourceNotFound{
         return employeeRepository.findByEmpId(id);
@@ -99,7 +99,7 @@ public class EmployeeService {
         for (Team t : teams)
         {
             TeamIndividualDetailsDTO teamIndividualDetailsDTO = new TeamIndividualDetailsDTO();
-           teamIndividualDetailsDTO.setTeamId(t.getTeamId());
+           teamIndividualDetailsDTO.setEmployeeId(t.getEmployeeId());
             teamIndividualDetailsDTO.setTeamName(t.getTeamName());
             List<Employee> e = new ArrayList<>();
             List<EmployeeDetailsDTO> employeeDetailsDTOS=new ArrayList<>();  //is to be set to tdo.setEmpdto

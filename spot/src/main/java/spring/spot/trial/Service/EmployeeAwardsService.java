@@ -82,12 +82,12 @@ public class EmployeeAwardsService {
         {
             List<String> members = t.getMembers();
 
-            for (String empId : members)   //All members under this team
+            for (String empId : members)     //All members under this team
             {
                 EmpAwardWinnersUnderManagerDTO edto = new EmpAwardWinnersUnderManagerDTO();
                 Employee employee = employeeRepository.findByEmpId(empId).get(0);
                 edto.setEmployee(employee);
-                List<EmployeeAwardsTM> etms = employeeAwardsTMRepository.findByEmpId(empId);//All awards of this member
+                List<EmployeeAwardsTM> etms = employeeAwardsTMRepository.findByEmpId(empId);    //All awards of this member
                 if(!etms.isEmpty()) {
                     edto.setEmployeeAwardsTMS(etms);
                     empAwardWinnersUnderManagerDTOS.add(edto);
@@ -98,3 +98,4 @@ public class EmployeeAwardsService {
         return awardsGivenByManagerDTO;
     }
 }
+

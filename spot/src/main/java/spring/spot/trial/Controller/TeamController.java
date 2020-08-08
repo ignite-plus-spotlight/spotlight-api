@@ -46,8 +46,8 @@ public class TeamController {
         return teamService.updateTeamByManagerId(id,team);
     }
 
-    @PutMapping(value = "/team/{empId}/{managerId}/{teamId}")
-    public Team updateIntoListOfMembers(@PathVariable("empId") String empId, @PathVariable("managerId") String managerId, @PathVariable("teamId") int teamId)
+    @PutMapping(value = "/team/{empId}/{teamId}/{employeeId}")
+    public Team updateIntoListOfMembers(@PathVariable("empId") String empId, @PathVariable("teamId") String managerId, @PathVariable("employeeId") int teamId)
     {
         return teamService.updateIntoList(empId,managerId,teamId);
     }

@@ -19,11 +19,11 @@ import java.util.Date;
 @Table("team_awards_received_tmd")
 public class TeamAwardsTMD implements Serializable {
 
-    @PrimaryKeyColumn(name = "team_id",ordinal = 1,type= PrimaryKeyType.PARTITIONED)
-    public int teamId;
+    @PrimaryKeyColumn(name = "employee_id",ordinal = 1,type= PrimaryKeyType.PARTITIONED)
+    public String employeeId;
 
-    @PrimaryKeyColumn(name = "manager_id",ordinal = 0, type = PrimaryKeyType.CLUSTERED)
-    public String managerId;
+    @PrimaryKeyColumn(name = "team_id",ordinal = 0, type = PrimaryKeyType.CLUSTERED)
+    public int teamId;
 
     @Column
     public String department;
@@ -49,20 +49,20 @@ public class TeamAwardsTMD implements Serializable {
     @Column
     private String imgsrc;
 
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
     public int getTeamId() {
         return teamId;
     }
 
     public void setTeamId(int teamId) {
         this.teamId = teamId;
-    }
-
-    public String getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
     }
 
     public String getDepartment() {

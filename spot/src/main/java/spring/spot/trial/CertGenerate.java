@@ -18,7 +18,6 @@ public class CertGenerate {
         context.put("description", "for being someone we can always count on! I'm so grateful for all of your hard work. " +
                 "The entire team thanks you for everything you do. It's rare to come across people who are so dedicated and trustworthy");
 
-
         Template t = ve.getTemplate("src/main/resources/certificate.vm");
 
         StringWriter writer = new StringWriter();
