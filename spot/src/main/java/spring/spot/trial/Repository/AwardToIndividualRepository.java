@@ -9,5 +9,5 @@ import java.util.List;
 @EnableCassandraRepositories
 public interface AwardToIndividualRepository extends CassandraRepository<AwardToIndividual, String> {
     AwardToIndividual save(AwardToIndividual awardToIndividual);
-    List<AwardToIndividual> findByAwardName(String awardName);
+   AwardToIndividual findByAwardName(String awardName);
 }

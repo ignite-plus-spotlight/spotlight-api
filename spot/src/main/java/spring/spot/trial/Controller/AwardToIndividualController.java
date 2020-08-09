@@ -27,7 +27,7 @@ public class AwardToIndividualController {
     }
 
     @GetMapping(value = "/employee/{name}/individualawards")
-    public List<AwardToIndividual> getAwardsByAwardName(@PathVariable("name") String awardName) {
+    public AwardToIndividual getAwardsByAwardName(@PathVariable("name") String awardName) {
         return awardToIndividualService.getAwardsByAwardName(awardName);
     }
 
@@ -42,3 +42,4 @@ public class AwardToIndividualController {
         return "Award with name " + awardName + " has been deleted!";
     }
 }
+

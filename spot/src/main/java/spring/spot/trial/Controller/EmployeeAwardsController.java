@@ -46,13 +46,15 @@ public class EmployeeAwardsController {
         return employeeAwardsService.getWinnersUnderManager(id);
     }
 
-    @PostMapping("/employee/employeeawards")
-    public EmployeeAwardsTM createEmployeeAwards(@RequestBody EmployeeAwardsTM emp) throws Exception {
-        return employeeAwardsService.createEmployeeAwards(emp);
+    @PostMapping("/employee/{emp_id}/employeeawards/award/{award_name}/period/{period_name}/department/{department}/manager/{manager_id}")
+    public EmployeeAwardsTM createEmployeeAwards(@PathVariable("emp_id") String emp_id ,@PathVariable("award_name") String award_name, @PathVariable("period_name") String period_name , @PathVariable("department") String department, @PathVariable("manager_id") String manager_id) throws Exception {
+        return employeeAwardsService.createEmployeeAwards(emp_id,manager_id,award_name,period_name,department);
     }
+
 
     @PutMapping(value = "employee/{id}/employeeawards")
     public EmployeeAwardsTM UpdateEmployeeAwardsById(@PathVariable("id") String id, @RequestBody EmployeeAwardsTM emp) {
         return employeeAwardsService.updateEmployeeAwardsById(id,emp);
     }
 }
+

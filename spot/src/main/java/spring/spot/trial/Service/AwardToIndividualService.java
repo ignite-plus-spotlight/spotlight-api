@@ -27,7 +27,7 @@ public class AwardToIndividualService {
         return awardToIndividualRepository.findAll();
     }
 
-    public List<AwardToIndividual> getAwardsByAwardName(String awardName) {
+    public AwardToIndividual getAwardsByAwardName(String awardName) {
         return awardToIndividualRepository.findByAwardName(awardName);
     }
 

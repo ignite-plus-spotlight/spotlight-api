@@ -3,14 +3,8 @@ package spring.spot.trial.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.CertGenerate;
-import spring.spot.trial.Entity.Employee;
-import spring.spot.trial.Entity.EmployeeAwardsMD;
-import spring.spot.trial.Entity.EmployeeAwardsTM;
-import spring.spot.trial.Entity.Team;
-import spring.spot.trial.Repository.EmployeeAwardsMRepository;
-import spring.spot.trial.Repository.EmployeeAwardsTMRepository;
-import spring.spot.trial.Repository.EmployeeRepository;
-import spring.spot.trial.Repository.TeamRepository;
+import spring.spot.trial.Entity.*;
+import spring.spot.trial.Repository.*;
 import spring.spot.trial.dto.AwardsGivenByManagerDTO;
 import spring.spot.trial.dto.EmpAwardWinnersUnderManagerDTO;
 
@@ -29,11 +23,26 @@ public class EmployeeAwardsService {
     EmployeeAwardsMRepository employeeAwardsMRepository;
 
     @Autowired
+    AwardToIndividualRepository awardToIndividualRepository;
+
+    @Autowired
     TeamRepository teamRepository;
 
     public EmployeeAwardsService(EmployeeAwardsTMRepository employeeAwardsTMRepository) { this.employeeAwardsTMRepository = employeeAwardsTMRepository; }
 
-    public EmployeeAwardsTM createEmployeeAwards(EmployeeAwardsTM emp) throws Exception {
+    public EmployeeAwardsTM createEmployeeAwards(String empId, String manager_id, String award_name, String period_name, String department) throws Exception {
+        EmployeeAwardsTM emp = new EmployeeAwardsTM();
+        AwardToIndividual awardToIndividual = awardToIndividualRepository.findByAwardName(award_name);
+        Employee employee1 = employeeRepository.findByEmpId(manager_id).get(0);
+        emp.setAwardedById(manager_id);
+        emp.setAwardName(award_name);
+        emp.setDepartment(department);
+        emp.setDescription(awardToIndividual.getDescription());
+        emp.setEmpId(empId);
+        emp.setEmpPoints(awardToIndividual.getPoints());
+        emp.setImgsrc(awardToIndividual.getImgsrc());
+        emp.setManagerName(employee1.getFirstName()+" "+employee1.getLastName());
+        emp.setPeriodName(period_name);
         EmployeeAwardsTM employeeAwardsTM = employeeAwardsTMRepository.save(emp);
         /************For certificate**************/
         Employee employee = employeeRepository.findByEmpId(employeeAwardsTM.getEmpId()).get(0);
@@ -71,6 +80,8 @@ public class EmployeeAwardsService {
     {
         return employeeAwardsMRepository.findByAwardedById(id);
     }
+
+
 
     public AwardsGivenByManagerDTO getWinnersUnderManager(String managerId)
     {
