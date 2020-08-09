@@ -26,7 +26,7 @@ public class TeamAwardsTMDController {
     }
 
     @GetMapping(value = "/teammember/{id}/teamawardstmd")
-    public List<TeamAwardsTMD> getTeamAwardsById(@PathVariable("id") int id) {
+    public List<TeamAwardsTMD> getTeamAwardsById(@PathVariable("id") String id) {
         return teamAwardsTMDService.getTeamAwardsById(id);
     }
 

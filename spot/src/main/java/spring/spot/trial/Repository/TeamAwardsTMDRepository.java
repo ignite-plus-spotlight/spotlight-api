@@ -8,5 +8,5 @@ import java.util.List;
 
 @EnableCassandraRepositories
 public interface TeamAwardsTMDRepository extends CassandraRepository<TeamAwardsTMD,Integer> {
-    List<TeamAwardsTMD> findByTeamId(int id);
+    List<TeamAwardsTMD> findByEmployeeId(String id);
 }

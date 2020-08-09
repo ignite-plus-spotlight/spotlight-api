@@ -32,8 +32,8 @@ public class EmployeeService {
 
     public Employee createEmployee(Employee emp) {
         String id = emp.getEmpId();
-        Employee employee = employeeRepository.findByEmpId(id).get(0);
-        if (employee == null)
+        List<Employee> employee = employeeRepository.findByEmpId(id);
+        if (employee.isEmpty())
         return employeeRepository.save(emp);
         else
             return null;

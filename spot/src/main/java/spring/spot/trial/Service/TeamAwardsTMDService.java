@@ -24,8 +24,8 @@ public class TeamAwardsTMDService {
         return teamAwardsTMDRepository.findAll();
     }
 
-    public List<TeamAwardsTMD> getTeamAwardsById(int id) {
-        return teamAwardsTMDRepository.findByTeamId(id);
+    public List<TeamAwardsTMD> getTeamAwardsById(String id) {
+        return teamAwardsTMDRepository.findByEmployeeId(id);
     }
 
     public TeamAwardsTMD updateTeamAwardsById(int id, TeamAwardsTMD teamAwardsTMD) { return teamAwardsTMDRepository.save(teamAwardsTMD); }
