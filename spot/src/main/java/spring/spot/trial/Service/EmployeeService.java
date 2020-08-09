@@ -1,11 +1,9 @@
 package spring.spot.trial.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.Employee;
 import spring.spot.trial.Entity.Team;
-import spring.spot.trial.Exception.ResourceNotFound;
 import spring.spot.trial.Repository.EmployeeAwardsTMRepository;
 import spring.spot.trial.Repository.EmployeeRepository;
 import spring.spot.trial.Repository.TeamRepository;
@@ -43,15 +41,12 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public List<Employee> getEmployeeById(String id) throws ResourceNotFound{
+    public List<Employee> getEmployeeById(String id) {
         return employeeRepository.findByEmpId(id);
     }
 
-    public ResponseEntity<Employee> updateEmployeeById(String id, Employee emp)  throws ResourceNotFound {
-        Employee employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFound("Employee not found for this id :: " + id));
-        final Employee updatedEmployee = employeeRepository.save(employee);
-        return ResponseEntity.ok(updatedEmployee);
+    public Employee updateEmployeeById(String id, Employee emp){
+        return employeeRepository.save(emp);
     }
 
 

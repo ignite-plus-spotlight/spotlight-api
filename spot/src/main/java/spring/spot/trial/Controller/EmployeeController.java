@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring.spot.trial.Entity.Employee;
-import spring.spot.trial.Exception.ResourceNotFound;
+import spring.spot.trial.Exception.ApiRequestException;
 import spring.spot.trial.Service.EmployeeService;
 import spring.spot.trial.dto.ManagerDTO;
 
@@ -31,16 +31,18 @@ public class EmployeeController {
 
     @GetMapping("/employee")
     public List<Employee> getAllEmployee() {
+        List<Employee> employees = employeeService.getAllEmployee();
+        if(employees.isEmpty())
+        throw new ApiRequestException("Not found!!");
         return employeeService.getAllEmployee();
     }
 
 
     @GetMapping(value = "/employee/{id}")
-    public List<Employee> getEmployeeById(@PathVariable("id") String id) throws ResourceNotFound {
+    public List<Employee> getEmployeeById(@PathVariable("id") String id)  {
         List<Employee> employees = employeeService.getEmployeeById(id);
-        if(employees == null)
-            throw new ResourceNotFound("No employee found with id:" + id);
-        else
+        if(employees.isEmpty())
+            throw new ApiRequestException("Employee not found for id::"+id);
         return employeeService.getEmployeeById(id);
     }
 
@@ -56,7 +58,7 @@ public class EmployeeController {
 
 
     @PutMapping(value = "/employee/{id}")
-    public ResponseEntity<Employee> UpdateEmployeeById(@PathVariable("id") String id, @RequestBody Employee emp) throws ResourceNotFound {
+    public Employee UpdateEmployeeById(@PathVariable("id") String id, @RequestBody Employee emp) {
         return employeeService.updateEmployeeById(id,emp);
     }
 
