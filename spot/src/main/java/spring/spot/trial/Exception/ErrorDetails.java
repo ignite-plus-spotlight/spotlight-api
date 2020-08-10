@@ -1,9 +1,14 @@
 package spring.spot.trial.Exception;
 
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.time.ZonedDateTime;
 
+import lombok.Builder;
+
+@Data
+@Builder
 public class ErrorDetails {
     private final String message;
     private final HttpStatus httpStatus;
@@ -18,7 +23,6 @@ public class ErrorDetails {
     public String getMessage() {
         return message;
     }
-
 
     public HttpStatus getHttpStatus() {
         return httpStatus;

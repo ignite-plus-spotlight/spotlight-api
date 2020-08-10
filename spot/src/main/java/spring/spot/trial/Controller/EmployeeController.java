@@ -1,11 +1,9 @@
 package spring.spot.trial.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring.spot.trial.Entity.Employee;
-import spring.spot.trial.Exception.ResourceNotFoundException;
+import spring.spot.trial.Exception.InputValidationException;
 import spring.spot.trial.Service.EmployeeService;
 import spring.spot.trial.dto.ManagerDTO;
 
@@ -34,16 +32,13 @@ public class EmployeeController {
     public List<Employee> getAllEmployee() {
         List<Employee> employees = employeeService.getAllEmployee();
         if(employees.isEmpty())
-        throw new ResourceNotFoundException("Not found!!");
+        throw new InputValidationException("Not found!!");
         return employeeService.getAllEmployee();
     }
 
-
     @GetMapping(value = "/employee/{id}")
     public List<Employee> getEmployeeById(@PathVariable("id") String id)  {
-        List<Employee> employees = employeeService.getEmployeeById(id);
-        if(employees.isEmpty())
-            throw new ResourceNotFoundException("Employee not found for id::"+id);
+        InputValidationException.validateInputParameter(id);
         return employeeService.getEmployeeById(id);
     }
 

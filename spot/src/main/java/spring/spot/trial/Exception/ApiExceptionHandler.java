@@ -10,8 +10,8 @@ import java.time.ZonedDateTime;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
-    @ExceptionHandler(value = {ResourceNotFoundException.class})
-    public ResponseEntity<Object> handleApiRequestException(ResourceNotFoundException e)
+    @ExceptionHandler(value = {InputValidationException.class})
+    public ResponseEntity<Object> handleApiRequestException(InputValidationException e)
     {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
 
@@ -23,8 +23,8 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(errorDetails,badRequest);
     }
 
-    @ExceptionHandler(value = {InvalidIDException.class})
-    public ResponseEntity<Object> handleInvalidIdException(InvalidIDException e)
+    @ExceptionHandler(value = {NotFoundException.class})
+    public ResponseEntity<Object> handleInvalidIdException(NotFoundException e)
     {
         HttpStatus notFound = HttpStatus.NOT_FOUND;
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.Employee;
 import spring.spot.trial.Entity.Team;
+import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.EmployeeAwardsTMRepository;
 import spring.spot.trial.Repository.EmployeeRepository;
 import spring.spot.trial.Repository.TeamRepository;
@@ -42,13 +43,16 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeeById(String id) {
-        return employeeRepository.findByEmpId(id);
+        List<Employee> employees = employeeRepository.findByEmpId(id);
+        if (employees.isEmpty())
+            throw new NotFoundException("No employee found for id: "+id);
+        return employees;
     }
+
 
     public Employee updateEmployeeById(String id, Employee emp){
         return employeeRepository.save(emp);
     }
-
 
     public Employee findByKeyFirstName(String id, String firstName) {
         return employeeRepository.findByEmpIdAndFirstName(id, firstName);
