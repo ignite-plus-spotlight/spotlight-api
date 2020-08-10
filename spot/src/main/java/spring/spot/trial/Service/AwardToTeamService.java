@@ -20,7 +20,6 @@ public class AwardToTeamService {
         return awardToTeamRepository.save(awardToTeam);
     }
 
-
     public List<AwardToTeam> getAllAwards() {
         return awardToTeamRepository.findAll();
     }

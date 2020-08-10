@@ -34,7 +34,7 @@ public class EmployeeService {
         if (employee.isEmpty())
         return employeeRepository.save(emp);
         else
-            return null;
+            return employee.get(0);
     }
 
     public List<Employee> getAllEmployee() {

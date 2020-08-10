@@ -1,10 +1,11 @@
 package spring.spot.trial.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring.spot.trial.Entity.Employee;
-import spring.spot.trial.Exception.ApiRequestException;
+import spring.spot.trial.Exception.ResourceNotFoundException;
 import spring.spot.trial.Service.EmployeeService;
 import spring.spot.trial.dto.ManagerDTO;
 
@@ -33,7 +34,7 @@ public class EmployeeController {
     public List<Employee> getAllEmployee() {
         List<Employee> employees = employeeService.getAllEmployee();
         if(employees.isEmpty())
-        throw new ApiRequestException("Not found!!");
+        throw new ResourceNotFoundException("Not found!!");
         return employeeService.getAllEmployee();
     }
 
@@ -42,7 +43,7 @@ public class EmployeeController {
     public List<Employee> getEmployeeById(@PathVariable("id") String id)  {
         List<Employee> employees = employeeService.getEmployeeById(id);
         if(employees.isEmpty())
-            throw new ApiRequestException("Employee not found for id::"+id);
+            throw new ResourceNotFoundException("Employee not found for id::"+id);
         return employeeService.getEmployeeById(id);
     }
 
