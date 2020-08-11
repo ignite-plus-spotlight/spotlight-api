@@ -13,26 +13,27 @@ public class NominationsService {
     @Autowired
     NominationsRepository nominationsRepository;
 
-    public NominationsService(NominationsRepository nominationsRepository) {
+    public NominationsService(NominationsRepository nominationsRepository){
         this.nominationsRepository = nominationsRepository;
     }
 
-    public Nominations createNominations(Nominations nominations) {
+    public Nominations createNominations(Nominations nominations){
         return nominationsRepository.save(nominations);
     }
 
-    public List<Nominations> getAllNominations() {
-        return nominationsRepository.findAll();
+    public List<Nominations> getAllNominations(){
+//        List<Nominations> nominations = nominationsRepository.findAll();
+        return (List<Nominations>) nominationsRepository.findAll();
     }
 
-    public List<Nominations> getNominationsByManagerId(String manager_id) {
-        return nominationsRepository.findByManagerId(manager_id);
+    public Nominations getNominationsById(String pollId){
+        return (Nominations) nominationsRepository.findByPollId(pollId);
     }
 
-    public Nominations updateNominationsById(String id, Nominations nominations) {
-        return nominationsRepository.save(nominations);
+    public List<Nominations> getNominationsByPollIdAndNominationId(String pollId,String nominationId){
+        return (List<Nominations>) nominationsRepository.findByPollIdAndNominationId(pollId,nominationId);
     }
+
+
 
 }
-
-

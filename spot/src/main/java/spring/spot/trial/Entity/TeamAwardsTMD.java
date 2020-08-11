@@ -26,10 +26,7 @@ public class TeamAwardsTMD implements Serializable {
     public int teamId;
 
     @Column
-    public String department;
-
-    @Column("period_name")
-    public  String periodName;
+    public String department; 
 
     @PrimaryKeyColumn(name = "award_name", ordinal = 1,type = PrimaryKeyType.CLUSTERED)
     private String awardName;
@@ -71,14 +68,6 @@ public class TeamAwardsTMD implements Serializable {
 
     public void setDepartment(String department) {
         this.department = department;
-    }
-
-    public String getPeriodName() {
-        return periodName;
-    }
-
-    public void setPeriodName(String periodName) {
-        this.periodName = periodName;
     }
 
     public String getAwardName() {

@@ -4,42 +4,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import spring.spot.trial.Entity.Nominations;
 import spring.spot.trial.Service.NominationsService;
-
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
-@CrossOrigin("*")
-@RequestMapping
-@RestController
-@ResponseBody
 
+@RequestMapping
+@ResponseBody
+@RestController
+@CrossOrigin("*")
 public class NominationsController {
     @Autowired
     NominationsService nominationsService;
 
-    public NominationsController(NominationsService nominationsService) {
+    public NominationsController (NominationsService nominationsService){
         this.nominationsService = nominationsService;
     }
 
     @GetMapping("/nominations")
-    public List<Nominations> getAllNominations() {
-
-        return (List<Nominations>) nominationsService.getAllNominations();
+    public List<Nominations> getAllNominations(){
+        return nominationsService.getAllNominations();
     }
 
-    @GetMapping(value = "/nominations/{id}")
-    public List<Nominations> getNominationsByManagerId(@PathVariable("id") String id) {
-        return nominationsService.getNominationsByManagerId(id);
+    @GetMapping("/nominations/{id}")
+    public List<Nominations> getAllNominations(@PathVariable("id") String id){
+        return (List<Nominations>) nominationsService.getNominationsById(id);
     }
 
-
-    @PostMapping("/nominations")
-    public Nominations createNominations(@RequestBody Nominations nominations) {
-        return nominationsService.createNominations(nominations);
-    }
-
-    @PutMapping(value = "/nominations/{id}")
-    public Nominations UpdateNominationsById(@PathVariable("id") String id, @RequestBody Nominations nominations) {
-        return nominationsService.updateNominationsById(id,nominations);
+    @GetMapping("/nominations/{id}/{nominationId}")
+    public List<Nominations> getAllNominations(@PathVariable("id") String id,@PathVariable("nominationId") String nominationId){
+        return (List<Nominations>) nominationsService.getNominationsByPollIdAndNominationId(id,nominationId);
     }
 
 }

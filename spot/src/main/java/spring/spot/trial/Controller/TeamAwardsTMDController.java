@@ -25,20 +25,20 @@ public class TeamAwardsTMDController {
         return (List<TeamAwardsTMD>) teamAwardsTMDService.getAllTeamAwards();
     }
 
-    @GetMapping(value = "/teammember/{id}/teamawardstmd")
-    public List<TeamAwardsTMD> getTeamAwardsById(@PathVariable("id") String id) {
+    //all members
+    @GetMapping(value = "/teammember/{managerId}/teamawardstmd")
+    public List<TeamAwardsTMD> getTeamAwardsById(@PathVariable("managerId") String id) {
         return teamAwardsTMDService.getTeamAwardsById(id);
     }
-
 
     @PostMapping("/teammember/teamawardstmd")
     public TeamAwardsTMD createTeamAwards(@RequestBody TeamAwardsTMD team) {
         return teamAwardsTMDService.createTeamAwards(team);
     }
 
-    @PutMapping(value = "/teammember/{id}/teamawardstmd")
-    public TeamAwardsTMD UpdateTeamAwardsById(@PathVariable("id") int id, @RequestBody TeamAwardsTMD teamAwardsTMD) {
-        return teamAwardsTMDService.updateTeamAwardsById(id, teamAwardsTMD);
+    //all members
+    @PostMapping(value = "/manager/{managerId}/teamawards/team/{teamId}")
+    public TeamAwardsTMD UpdateTeamAwardsById(@PathVariable("managerId") String managerId,@PathVariable("teamId") int teamId, @RequestBody TeamAwardsTMD teamAwardsTMD) {
+        return teamAwardsTMDService.updateTeamAwardsById(managerId, teamId, teamAwardsTMD);
     }
-
 }
