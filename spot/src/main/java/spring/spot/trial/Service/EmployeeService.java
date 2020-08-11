@@ -63,11 +63,11 @@ public class EmployeeService {
         ManagerDTO managerDTO = new ManagerDTO();
         //Manager Employee Information
         managerDTO.setEmployee(employeeRepository.findByEmpId(id).get(0));
+
         // Manager can have list of Teams
 
         // Database Team Entity Way
         List<Team> teams = teamRepository.findByManagerId(id);
-
 
         // Team DTO initialize
         List<TeamDTO> teamsdto = new ArrayList<>();

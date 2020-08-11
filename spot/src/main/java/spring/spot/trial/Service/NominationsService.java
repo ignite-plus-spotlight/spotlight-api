@@ -2,15 +2,12 @@ package spring.spot.trial.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spring.spot.trial.Entity.NominationDate;
-import spring.spot.trial.Entity.Nominations;
-import spring.spot.trial.Entity.Poll;
-import spring.spot.trial.Entity.PollingDate;
-import spring.spot.trial.Repository.NominationDateRepository;
-import spring.spot.trial.Repository.NominationsRepository;
-import spring.spot.trial.Repository.PollRepository;
-import spring.spot.trial.Repository.PollingDateRepository;
+import spring.spot.trial.Entity.*;
+import spring.spot.trial.Repository.*;
+import spring.spot.trial.dto.NominationDTO;
+import spring.spot.trial.dto.PollProcessDTO;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +25,9 @@ public class NominationsService {
 
     @Autowired
     PollingDateRepository pollingDateRepository;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     public NominationsService(NominationsRepository nominationsRepository){
         this.nominationsRepository = nominationsRepository;
@@ -50,7 +50,7 @@ public class NominationsService {
         return nominationsRepository.findByPollIdAndNominationId(pollId,nominationId);
     }
 
-    public Poll postIntoMultipleTables(String pollName, String description, Date nomStart, Date nomEnd, Date pollStart, Date pollEnd, String pollId)
+    public Poll postIntoMultipleTables(String pollName, List<String> description, Date nomStart, Date nomEnd, Date pollStart, Date pollEnd, String pollId)
     {
         Poll poll = new Poll();
         poll.setPollId(pollId);
@@ -72,5 +72,24 @@ public class NominationsService {
 
         return poll;
 
+    }
+
+    public PollProcessDTO pollProcess(String pollId){
+        PollProcessDTO pollProcessDTO = new PollProcessDTO();
+        List<NominationDTO> nominationDTOS = new ArrayList<>();
+        List<Nominations> nominations = nominationsRepository.findByPollId(pollId);
+        for(Nominations nomination : nominations)
+        {
+            NominationDTO nominationDTO = new NominationDTO();
+            nominationDTO.setDescription(nomination.getDescription());
+            nominationDTO.setEmp_id(nomination.getEmployeeId());
+            nominationDTO.setManager_id(nomination.getManagerId());
+            nominationDTO.setNominationId(nomination.getNominationId());
+            nominationDTO.setEmployee(employeeRepository.findByEmpId(nomination.getEmployeeId()).get(0));
+            nominations.add(nomination);
+        }
+        pollProcessDTO.setPollId(pollId);
+        pollProcessDTO.setNominationDTOS(nominationDTOS);
+        return pollProcessDTO;
     }
 }
