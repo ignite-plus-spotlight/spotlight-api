@@ -16,14 +16,19 @@ public class PollStatusService {
     }
 
     public List<PollStatus> getAllPollStatus(){
-        return (List<PollStatus>) pollStatusRepository.findAll();
+        return pollStatusRepository.findAll();
     }
 
     public List<PollStatus> getAllByPollId(String id){
-        return (List<PollStatus>) pollStatusRepository.findByPollId(id);
+        return pollStatusRepository.findByPollId(id);
     }
 
-    public List<PollStatus> getAllByPollIdAndNominationId(String id,String nominationId){
-        return (List<PollStatus>) pollStatusRepository.findByPollIdAndNominationId(id,nominationId);
+   /* public List<PollStatus> getAllByPollIdAndNominationId(String id,String nominationId){
+        return pollStatusRepository.findByPollIdAndNominationId(id,nominationId);
+    }*/
+
+    public PollStatus createPollStatus(PollStatus pollStatus) {
+        return pollStatusRepository.save(pollStatus);
     }
+
 }

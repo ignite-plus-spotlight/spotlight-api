@@ -18,7 +18,7 @@ import java.util.Date;
 
 public class NominationsHistory implements Serializable {
 
-    @PrimaryKeyColumn(name ="manger_id",ordinal = 0,type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKeyColumn(name ="manager_id",ordinal = 0,type = PrimaryKeyType.PARTITIONED)
     public String managerId;
 
     @PrimaryKeyColumn(name="nomination_id",ordinal = 0,type = PrimaryKeyType.CLUSTERED)

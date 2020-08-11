@@ -25,5 +25,4 @@ public class NominationDate implements Serializable {
 
     @Column("poll_id")
     private String pollId;
-
 }
