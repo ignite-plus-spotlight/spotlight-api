@@ -39,7 +39,7 @@ public class NominationsService {
 
     public List<Nominations> getAllNominations(){
 //        List<Nominations> nominations = nominationsRepository.findAll();
-        return (List<Nominations>) nominationsRepository.findAll();
+        return nominationsRepository.findAll();
     }
 
     public Nominations getNominationsById(String pollId){
@@ -47,7 +47,7 @@ public class NominationsService {
     }
 
     public List<Nominations> getNominationsByPollIdAndNominationId(String pollId,String nominationId){
-        return (List<Nominations>) nominationsRepository.findByPollIdAndNominationId(pollId,nominationId);
+        return nominationsRepository.findByPollIdAndNominationId(pollId,nominationId);
     }
 
     public Poll postIntoMultipleTables(String pollName, String description, Date nomStart, Date nomEnd, Date pollStart, Date pollEnd, String pollId)
@@ -73,5 +73,4 @@ public class NominationsService {
         return poll;
 
     }
-
 }

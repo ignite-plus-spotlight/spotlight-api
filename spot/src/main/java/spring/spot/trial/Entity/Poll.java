@@ -9,6 +9,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -23,6 +24,6 @@ public class Poll implements Serializable {
     private String pollName;
 
     @Column
-    private String description;
+    private List<String> description;
 
 }
