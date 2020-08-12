@@ -10,7 +10,6 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Table
@@ -34,6 +33,6 @@ public class Nominations implements Serializable {
 
     @NotNull
     @Column()
-    private List<String> description;
+    private String description;
 
 }

@@ -38,7 +38,6 @@ public class NominationsService {
     }
 
     public List<Nominations> getAllNominations(){
-//        List<Nominations> nominations = nominationsRepository.findAll();
         return nominationsRepository.findAll();
     }
 
@@ -50,8 +49,18 @@ public class NominationsService {
         return nominationsRepository.findByPollIdAndNominationId(pollId,nominationId);
     }
 
-    public Poll postIntoMultipleTables(String pollName, List<String> description, Date nomStart, Date nomEnd, Date pollStart, Date pollEnd, String pollId)
+    public PostIntoMultipleEntity postIntoMultipleTables(PostIntoMultipleEntity postIntoMultipleEntity )
     {
+        String pollName; String description; Date nomStart; Date nomEnd; Date pollStart; Date pollEnd; String pollId;
+
+        pollName = postIntoMultipleEntity.getPollName();
+        description = postIntoMultipleEntity.getDescription();
+        nomStart = postIntoMultipleEntity.getNomStart();
+        nomEnd = postIntoMultipleEntity.getNomEnd();
+        pollStart = postIntoMultipleEntity.getPollStart();
+        pollEnd = postIntoMultipleEntity.getPollEnd();
+        pollId = postIntoMultipleEntity.getPollId();
+
         Poll poll = new Poll();
         poll.setPollId(pollId);
         poll.setPollName(pollName);
@@ -70,7 +79,7 @@ public class NominationsService {
         pollingDate.setPollEndDate(pollEnd);
         pollingDateRepository.save(pollingDate);
 
-        return poll;
+        return postIntoMultipleEntity;
 
     }
 
