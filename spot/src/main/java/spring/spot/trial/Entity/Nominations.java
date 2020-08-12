@@ -10,6 +10,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @Table
@@ -19,7 +20,8 @@ import java.io.Serializable;
 public class Nominations implements Serializable {
 
     @PrimaryKeyColumn(name ="poll_id",ordinal = 0,type = PrimaryKeyType.PARTITIONED)
-    public String pollId;
+    public UUID pollId;
+
     @PrimaryKeyColumn(name = "nomination_id",ordinal = 0,type = PrimaryKeyType.CLUSTERED)
     public String nominationId;
 

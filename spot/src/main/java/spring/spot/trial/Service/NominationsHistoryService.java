@@ -26,7 +26,7 @@ public class NominationsHistoryService {
     public List<NominationsHistory> getNominationsHistoryByManagerId(String manager_id) {
         return nominationsHistoryRepository.findByManagerId(manager_id);
     }
-
+//with date also
     public NominationsHistory updateNominationsHistoryById(String id, NominationsHistory nominations) {
         return nominationsHistoryRepository.save(nominations);
     }

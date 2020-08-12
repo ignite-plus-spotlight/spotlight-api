@@ -10,6 +10,9 @@ import spring.spot.trial.dto.PollProcessDTO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
+import static java.util.UUID.*;
 
 @Service
 public class NominationsService {
@@ -51,7 +54,7 @@ public class NominationsService {
 
     public PostIntoMultipleEntity postIntoMultipleTables(PostIntoMultipleEntity postIntoMultipleEntity )
     {
-        String pollName; String description; Date nomStart; Date nomEnd; Date pollStart; Date pollEnd; String pollId;
+        String pollName; String description; Date nomStart; Date nomEnd; Date pollStart; Date pollEnd;
 
         pollName = postIntoMultipleEntity.getPollName();
         description = postIntoMultipleEntity.getDescription();
@@ -59,7 +62,7 @@ public class NominationsService {
         nomEnd = postIntoMultipleEntity.getNomEnd();
         pollStart = postIntoMultipleEntity.getPollStart();
         pollEnd = postIntoMultipleEntity.getPollEnd();
-        pollId = postIntoMultipleEntity.getPollId();
+        UUID pollId = randomUUID();
 
         Poll poll = new Poll();
         poll.setPollId(pollId);

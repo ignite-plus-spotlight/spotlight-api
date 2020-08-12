@@ -24,6 +24,8 @@ dependencies {
 	compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.10'
 	compile group: 'com.itextpdf.tool', name: 'xmlworker', version: '5.5.10'
 	compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+	compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.12.Final'
+	compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '6.0.0.Alpha5', ext: 'pom'
 	implementation 'org.springframework.boot:spring-boot-starter-data-cassandra'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
