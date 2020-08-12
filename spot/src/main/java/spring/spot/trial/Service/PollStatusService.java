@@ -23,9 +23,9 @@ public class PollStatusService {
         return pollStatusRepository.findByPollId(id);
     }
 
-   /* public List<PollStatus> getAllByPollIdAndNominationId(String id,String nominationId){
+    public PollStatus getAllByPollIdAndNominationId(String id,String nominationId){
         return pollStatusRepository.findByPollIdAndNominationId(id,nominationId);
-    }*/
+    }
 
     public PollStatus createPollStatus(PollStatus pollStatus) {
         return pollStatusRepository.save(pollStatus);

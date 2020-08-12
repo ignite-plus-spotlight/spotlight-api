@@ -10,7 +10,7 @@ import java.util.List;
 @EnableCassandraRepositories
 public interface PollStatusRepository extends CassandraRepository<PollStatus,String> {
     List<PollStatus> findByPollId(String pollId);
-//    List<PollStatus> findByPollIdAndNominationId(String pollId, String nominationId);
+    PollStatus findByPollIdAndNominationId(String pollId, String nominationId);
     PollStatus save(PollStatus pollStatus);
 
 }

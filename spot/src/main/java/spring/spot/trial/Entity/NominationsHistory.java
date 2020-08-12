@@ -21,16 +21,16 @@ public class NominationsHistory implements Serializable {
     @PrimaryKeyColumn(name ="manager_id",ordinal = 0,type = PrimaryKeyType.PARTITIONED)
     public String managerId;
 
-    @PrimaryKeyColumn(name="nomination_id",ordinal = 0,type = PrimaryKeyType.CLUSTERED)
+    @PrimaryKeyColumn(name="created_date",ordinal = 0,type = PrimaryKeyType.CLUSTERED)
+    private Date createdDate;
+
+    @Column
     public String nominationId;
 
-    @PrimaryKeyColumn(name = "emp_id",ordinal = 1, type = PrimaryKeyType.CLUSTERED)
+    @Column
     public String employeeId;
 
     @NotNull
     @Column("poll_name")
     private String pollName;
-
-    @Column("created_date")
-    private Date createdDate;
 }

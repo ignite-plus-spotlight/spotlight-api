@@ -28,11 +28,10 @@ public class PollStatusController {
     public List<PollStatus> getAllPollStatus(@PathVariable("id")String pollId){
         return (List<PollStatus>) pollStatusService.getAllByPollId(pollId);
     }
-/*
     @GetMapping("/pollStatus/{id}/{nominationId}")
     public List<PollStatus> getAllPollStatus(@PathVariable("id")String pollId,@PathVariable("nominationId")String nominationId){
         return (List<PollStatus>) pollStatusService.getAllByPollIdAndNominationId(pollId,nominationId);
-    }*/
+    }
     @PostMapping("/pollStatus")
     public PollStatus createPollStatus(@RequestBody PollStatus pollStatus){
         return pollStatusService.createPollStatus(pollStatus);
