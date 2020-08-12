@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.NominationsHistory;
 import spring.spot.trial.Repository.NominationsHistoryRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,7 +27,12 @@ public class NominationsHistoryService {
     public List<NominationsHistory> getNominationsHistoryByManagerId(String manager_id) {
         return nominationsHistoryRepository.findByManagerId(manager_id);
     }
-//with date also
+
+    public NominationsHistory getByManagerIdAndDate(String id, Date date)
+    {
+        return nominationsHistoryRepository.findByManagerIdAndCreatedDate(id, date);
+    }
+
     public NominationsHistory updateNominationsHistoryById(String id, NominationsHistory nominations) {
         return nominationsHistoryRepository.save(nominations);
     }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import spring.spot.trial.Entity.NominationsHistory;
 import spring.spot.trial.Service.NominationsHistoryService;
 
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -26,5 +27,11 @@ public class NominationsHistoryController {
     public List<NominationsHistory> getNominationsHistoryByManagerId(@PathVariable("id") String id){ return nominationsHistoryService.getNominationsHistoryByManagerId(id);}
 
     @PostMapping("/nominationshistory")
-    public NominationsHistory createNomiationsHistory(@RequestBody NominationsHistory nominationsHistory){return nominationsHistoryService.createNominationsHistory(nominationsHistory);}
+    public NominationsHistory createNominationsHistory(@RequestBody NominationsHistory nominationsHistory){return nominationsHistoryService.createNominationsHistory(nominationsHistory);}
+
+   /* @GetMapping("/nominationhistory/manager/{id}/createddate/{date}")
+    public NominationsHistory getNominationHistoryByDate(@PathVariable("id") String id,@PathVariable("date") Date date)
+    {
+        return nominationsHistoryService.getByManagerIdAndDate(id, date);
+    }*/
 }

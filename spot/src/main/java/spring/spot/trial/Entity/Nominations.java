@@ -36,5 +36,4 @@ public class Nominations implements Serializable {
     @NotNull
     @Column()
     private String description;
-
 }

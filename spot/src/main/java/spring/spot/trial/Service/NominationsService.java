@@ -32,6 +32,9 @@ public class NominationsService {
     @Autowired
     EmployeeRepository employeeRepository;
 
+    @Autowired
+    NominationsHistoryRepository nominationsHistoryRepository;
+
     public NominationsService(NominationsRepository nominationsRepository){
         this.nominationsRepository = nominationsRepository;
     }
@@ -44,8 +47,8 @@ public class NominationsService {
         return nominationsRepository.findAll();
     }
 
-    public Nominations getNominationsById(String pollId){
-        return (Nominations) nominationsRepository.findByPollId(pollId);
+    public List<Nominations> getNominationsById(String pollId){
+        return  nominationsRepository.findByPollId(pollId);
     }
 
     public List<Nominations> getNominationsByPollIdAndNominationId(String pollId,String nominationId){
@@ -103,5 +106,26 @@ public class NominationsService {
         pollProcessDTO.setPollId(pollId);
         pollProcessDTO.setNominationDTOS(nominationDTOS);
         return pollProcessDTO;
+    }
+
+    public Nominations nominate(UUID pollId, String nominationId, String employeeId, String managerId, String description, Date createdDate, String pollName)
+    {
+        Nominations nominations = new Nominations();
+        nominations.setNominationId(nominationId);
+        nominations.setPollId(pollId);
+        nominations.setManagerId(managerId);
+        nominations.setEmployeeId(employeeId);
+        nominations.setDescription(description);
+        nominationsRepository.save(nominations);
+
+        NominationsHistory nominationsHistory = new NominationsHistory();
+        nominationsHistory.setCreatedDate(createdDate);
+        nominationsHistory.setEmployeeId(employeeId);
+        nominationsHistory.setManagerId(managerId);
+        nominationsHistory.setNominationId(nominationId);
+        nominationsHistory.setPollName(pollName);
+        nominationsHistoryRepository.save(nominationsHistory);
+
+        return nominations;
     }
 }
