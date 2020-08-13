@@ -54,7 +54,7 @@ public class NominationsService {
         return  nominationsRepository.findByPollId(pollId);
     }
 
-    public List<Nominations> getNominationsByPollIdAndNominationId(UUID pollId,String nominationId){
+    public Nominations getNominationsByPollIdAndNominationId(UUID pollId,UUID nominationId){
         return nominationsRepository.findByPollIdAndNominationId(pollId,nominationId);
     }
 

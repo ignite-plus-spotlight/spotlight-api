@@ -9,7 +9,7 @@ import java.util.UUID;
 @EnableCassandraRepositories
 public interface NominationsRepository extends CassandraRepository<Nominations,String> {
     List<Nominations> findByPollId(UUID pollId);
-    List<Nominations> findByPollIdAndNominationId(UUID pollId,String nominationId);
+    Nominations findByPollIdAndNominationId(UUID pollId,UUID nominationId);
     Nominations save(Nominations nominations);
 
 }

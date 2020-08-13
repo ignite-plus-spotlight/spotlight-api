@@ -40,7 +40,7 @@ public class NominationsController {
     }
 
     @GetMapping("/nominations/{id}/{nominationId}")
-    public List<Nominations> getAllNominations(@PathVariable("id") UUID id,@PathVariable("nominationId") String nominationId){
+    public Nominations getAllNominations(@PathVariable("id") UUID id,@PathVariable("nominationId") UUID nominationId){
         return nominationsService.getNominationsByPollIdAndNominationId(id,nominationId);
     }
     @PostMapping("/nominations")

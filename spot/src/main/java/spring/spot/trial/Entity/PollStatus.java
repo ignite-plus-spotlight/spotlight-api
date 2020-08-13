@@ -22,8 +22,7 @@ public class PollStatus implements Serializable {
     public UUID pollId;
     @PrimaryKeyColumn(name = "nomination_id",ordinal = 0,type = PrimaryKeyType.CLUSTERED)
     public UUID nominationId;
-
     @Column
-    public int voteCount;
+    public int voteCount=0;
 
 }
