@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import spring.spot.trial.Entity.PollingDate;
 import spring.spot.trial.Service.PollingDateService;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -27,7 +27,7 @@ public class PollingDateController {
     }
 
     @GetMapping(value = "/pollingDate/start/{startdate}/end/{enddate}")
-    public PollingDate getPollingByDates(@PathVariable("startdate") Date start, @PathVariable("enddate")Date end) {
+    public PollingDate getPollingByDates(@PathVariable("startdate") LocalDateTime start, @PathVariable("enddate") LocalDateTime end) {
         return pollingDateService.getPollingByDates(start, end);
     }
 

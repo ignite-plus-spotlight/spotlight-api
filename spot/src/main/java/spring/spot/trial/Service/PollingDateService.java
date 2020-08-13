@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.PollingDate;
 import spring.spot.trial.Repository.PollingDateRepository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,7 +25,7 @@ public class PollingDateService {
         return pollingDateRepository.findAll();
     }
 
-    public PollingDate getPollingByDates(Date start, Date end) {
+    public PollingDate getPollingByDates(LocalDateTime start, LocalDateTime end) {
         return pollingDateRepository.findByPollStartDateAndPollEndDate(start,end);
     }
 }

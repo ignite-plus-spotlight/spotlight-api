@@ -9,7 +9,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -23,7 +23,7 @@ public class NominationsHistory implements Serializable {
     public String managerId;
 
     @PrimaryKeyColumn(name="created_date",ordinal = 0,type = PrimaryKeyType.CLUSTERED)
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @Column
     public UUID nominationId;

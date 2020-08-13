@@ -68,7 +68,6 @@ public class NominationsController {
     public Nominations nominate(@RequestBody Nominate nominate)
     {
 
-
         UUID pollId; UUID nominationId; String employeeId; String managerId; String description;  String pollName;
         pollId = nominate.getPollId();
         employeeId = nominate.getEmployeeId();

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import spring.spot.trial.Entity.NominationsHistory;
 import spring.spot.trial.Service.NominationsHistoryService;
+import spring.spot.trial.dto.NominationHistoryDto;
 
 import java.util.List;
 
@@ -28,9 +29,17 @@ public class NominationsHistoryController {
     @PostMapping("/nominationshistory")
     public NominationsHistory createNominationsHistory(@RequestBody NominationsHistory nominationsHistory){return nominationsHistoryService.createNominationsHistory(nominationsHistory);}
 
+
+
     @GetMapping("/nominationhistory/manager/{id}/createddate")
     public NominationsHistory getNominationHistoryByDate(@PathVariable("id") String id)
     {
         return nominationsHistoryService.getByManagerIdAndDate(id);
+    }
+
+    @GetMapping("nominationhistoryfromdto/manager/{managerId}")
+    public List<NominationHistoryDto> history(@PathVariable("managerId") String managerId)
+    {
+        return nominationsHistoryService.nominationHistory(managerId);
     }
 }

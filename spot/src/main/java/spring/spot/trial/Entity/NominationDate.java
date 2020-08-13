@@ -2,7 +2,6 @@ package spring.spot.trial.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.Column;
@@ -10,7 +9,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -20,10 +19,10 @@ import java.util.UUID;
 public class NominationDate implements Serializable {
 
     @PrimaryKeyColumn(name = "nomination_start_date", ordinal = 0,type = PrimaryKeyType.PARTITIONED)
-    private Date nominationStartDate;
+    private LocalDateTime nominationStartDate;
 
     @PrimaryKeyColumn(name = "nomination_end_date", ordinal = 1,type = PrimaryKeyType.PARTITIONED)
-    private Date nominationEndDate;
+    private LocalDateTime nominationEndDate;
 
     @Column("poll_id")
     private UUID pollId;

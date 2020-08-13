@@ -8,7 +8,7 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,10 +16,10 @@ import java.util.Date;
 @Table("polling_date")
 public class PollingDate {
     @PrimaryKeyColumn(name = "poll_start_date", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
-    private Date pollStartDate;
+    private LocalDateTime pollStartDate;
 
     @PrimaryKeyColumn(name = "poll_end_date", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
-    private Date pollEndDate;
+    private LocalDateTime pollEndDate;
 
     @Column("poll_id")
     private String pollName;

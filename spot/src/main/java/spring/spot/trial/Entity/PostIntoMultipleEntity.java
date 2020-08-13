@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -13,8 +13,8 @@ import java.util.UUID;
 public class PostIntoMultipleEntity {
     String pollName;
     String description;
-    Date nomStart;
-    Date nomEnd;
-    Date pollStart;
-    Date pollEnd;
+    LocalDateTime nomStart;
+    LocalDateTime nomEnd;
+    LocalDateTime pollStart;
+    LocalDateTime pollEnd;
 }

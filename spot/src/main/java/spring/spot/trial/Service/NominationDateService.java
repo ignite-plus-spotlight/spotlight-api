@@ -8,6 +8,7 @@ import spring.spot.trial.Repository.NominationDateRepository;
 import spring.spot.trial.Repository.PollRepository;
 import spring.spot.trial.dto.PopUpDTO;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,7 @@ NominationDateRepository nominationDateRepository;
         return nominationDateRepository.findAll();
     }
 
-    public NominationDate getNominationByDates(Date start, Date end) {
+    public NominationDate getNominationByDates(LocalDateTime start, LocalDateTime end) {
         return nominationDateRepository.findByNominationStartDateAndNominationEndDate(start,end);
     }
 
@@ -42,7 +43,7 @@ NominationDateRepository nominationDateRepository;
     //check in nominations table for the current date
     //if its today return dto
 
-    public List<PopUpDTO> popUp(Date Today)
+    public List<PopUpDTO> popUp(LocalDateTime Today)
     {
         List<PopUpDTO> popUpDTOS = new ArrayList<>();
 
@@ -52,8 +53,8 @@ NominationDateRepository nominationDateRepository;
             PopUpDTO popUpDTO = new PopUpDTO();
             String description;
             String pollName;
-           Date startDate =  nominationDate.getNominationStartDate();
-           Date endDate = nominationDate.getNominationEndDate();
+           LocalDateTime startDate =  nominationDate.getNominationStartDate();
+           LocalDateTime endDate = nominationDate.getNominationEndDate();
             NominationDate n = new NominationDate();
            if(Today.compareTo(startDate)>=0 && Today.compareTo(endDate)<=0)
                  n = nominationDateRepository.findByNominationStartDateAndNominationEndDate(startDate,endDate);

@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.*;
 import spring.spot.trial.Repository.*;
 import spring.spot.trial.dto.NominationDTO;
+import spring.spot.trial.dto.NominationHistoryDto;
 import spring.spot.trial.dto.PollProcessDTO;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +60,7 @@ public class NominationsService {
 
     public PostIntoMultipleEntity postIntoMultipleTables(PostIntoMultipleEntity postIntoMultipleEntity )
     {
-        String pollName; String description; Date nomStart; Date nomEnd; Date pollStart; Date pollEnd;
+        String pollName; String description; LocalDateTime nomStart; LocalDateTime nomEnd; LocalDateTime pollStart; LocalDateTime pollEnd;
 
         pollName = postIntoMultipleEntity.getPollName();
         description = postIntoMultipleEntity.getDescription();
@@ -109,11 +111,13 @@ public class NominationsService {
         return pollProcessDTO;
     }
 
+
+
     //manager nominates
     public Nominations nominate(UUID pollId, String employeeId, String managerId, String description, String pollName)
     {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date createdDate = new Date();
+        LocalDateTime createdDate = LocalDateTime.now();
 
         UUID nominationId=UUID.randomUUID();
 
@@ -135,6 +139,4 @@ public class NominationsService {
 
         return nominations;
     }
-
-
 }

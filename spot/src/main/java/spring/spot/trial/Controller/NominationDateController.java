@@ -7,6 +7,7 @@ import spring.spot.trial.Entity.NominationDate;
 import spring.spot.trial.Service.NominationDateService;
 import spring.spot.trial.dto.PopUpDTO;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class NominationDateController {
     }
 
     @GetMapping(value = "/nominationdate/start/{startdate}/end/{enddate}")
-    public NominationDate getENominationsByDates(@PathVariable("startdate")Date start, @PathVariable("enddate")Date end) {
+    public NominationDate getENominationsByDates(@PathVariable("startdate") LocalDateTime start, @PathVariable("enddate") LocalDateTime end) {
         return nominationDateService.getNominationByDates(start, end);
     }
 
@@ -42,7 +43,7 @@ public class NominationDateController {
     @GetMapping("/nominationalert")
     public List<PopUpDTO> alert()
     {
-        Date Today = new Date();
+        LocalDateTime Today = LocalDateTime.now();
         return nominationDateService.popUp(Today);
     }
 
