@@ -3,6 +3,7 @@ package spring.spot.trial.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.*;
+import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.*;
 import spring.spot.trial.dto.NominationDTO;
 import spring.spot.trial.dto.NominationHistoryDto;
@@ -47,7 +48,10 @@ public class NominationsService {
     }
 
     public List<Nominations> getAllNominations(){
-        return nominationsRepository.findAll();
+        List<Nominations> nominations = nominationsRepository.findAll();
+        if(nominations.isEmpty())
+            throw new NotFoundException("No nominations found!");
+        return nominations;
     }
 
     public List<Nominations> getNominationsById(UUID pollId){

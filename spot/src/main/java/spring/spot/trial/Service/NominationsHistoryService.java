@@ -9,7 +9,6 @@ import spring.spot.trial.dto.NominationHistoryDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service

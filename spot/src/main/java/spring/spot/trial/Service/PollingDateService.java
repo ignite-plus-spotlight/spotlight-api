@@ -3,6 +3,8 @@ package spring.spot.trial.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.PollingDate;
+import spring.spot.trial.Exception.NotAcceptableException;
+import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.PollingDateRepository;
 
 import java.time.LocalDateTime;
@@ -18,10 +20,15 @@ public class PollingDateService {
     }
     
     public PollingDate createPollingDate(PollingDate pollingDate) {
+        if(pollingDate.getPollStartDate().compareTo(pollingDate.getPollEndDate())==0 || pollingDate.getPollStartDate().compareTo(pollingDate.getPollEndDate())>0)
+            throw new NotAcceptableException("Give valid dates");
         return pollingDateRepository.save(pollingDate);
     }
 
     public List<PollingDate> getAllPolling() {
+        List<PollingDate> pollingDates = pollingDateRepository.findAll();
+        if(pollingDates.isEmpty())
+            throw new NotFoundException("No polling found");
         return pollingDateRepository.findAll();
     }
 

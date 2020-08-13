@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.CertGenerate;
 import spring.spot.trial.Entity.*;
+import spring.spot.trial.Exception.InputValidationException;
+import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.*;
 import spring.spot.trial.dto.AwardsGivenByManagerDTO;
 import spring.spot.trial.dto.EmpAwardWinnersUnderManagerDTO;
@@ -69,17 +71,36 @@ public class EmployeeAwardsService {
 
 
     public List<EmployeeAwardsTM> getAllEmployeeAwards(){
-        return employeeAwardsTMRepository.findAll();
+        List<EmployeeAwardsTM> employeesAwards = employeeAwardsTMRepository.findAll();
+        if(employeesAwards.isEmpty())
+            throw new NotFoundException("Employee Award not found");
+        return employeesAwards;
     }
 
-    public List<EmployeeAwardsTM> getEmployeeAwardsById(String id) { return employeeAwardsTMRepository.findByEmpId(id); }
+    public List<EmployeeAwardsTM> getEmployeeAwardsById(String id) {
+        InputValidationException.validateInputParameter(id);
+        List<EmployeeAwardsTM> employeesAwards = employeeAwardsTMRepository.findByEmpId(id);
+        if(employeesAwards.isEmpty())
+            throw new NotFoundException("Employee Award not found for id:"+id);
+        return employeesAwards; }
 
-    public EmployeeAwardsTM updateEmployeeAwardsById(String id, EmployeeAwardsTM emp) { return employeeAwardsTMRepository.save(emp); }
+    public EmployeeAwardsTM updateEmployeeAwardsById(String id, EmployeeAwardsTM emp) {
+        InputValidationException.validateInputParameter(id);
+        List<EmployeeAwardsTM> employees = employeeAwardsTMRepository.findByEmpId(id);
+        if(employees.isEmpty())
+            throw new NotFoundException("Employee Award not found for id: "+id);
+        return employeeAwardsTMRepository.save(emp); }
 
-    public List<EmployeeAwardsMD> getEmployeeAwardsMByManagerId(String id)
-    {
-        return employeeAwardsMRepository.findByAwardedById(id);
+    public List<EmployeeAwardsMD> getEmployeeAwardsMByManagerId(String id) {
+        InputValidationException.validateInputParameter(id);
+        List<EmployeeAwardsMD> employeesAwards = employeeAwardsMRepository.findByAwardedById(id);
+        if(employeesAwards.isEmpty())
+            throw new NotFoundException("Manager not found for id: "+id);
+        return employeesAwards;
     }
+
+
+
 
 
 

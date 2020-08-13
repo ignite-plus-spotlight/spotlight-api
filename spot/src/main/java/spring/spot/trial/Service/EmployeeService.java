@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.Employee;
 import spring.spot.trial.Entity.Team;
+import spring.spot.trial.Exception.InputValidationException;
 import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.EmployeeAwardsTMRepository;
 import spring.spot.trial.Repository.EmployeeRepository;
@@ -29,20 +30,25 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
+
     public Employee createEmployee(Employee emp) {
         String id = emp.getEmpId();
         List<Employee> employee = employeeRepository.findByEmpId(id);
         if (employee.isEmpty())
-        return employeeRepository.save(emp);
+            return employeeRepository.save(emp);
         else
             return employee.get(0);
     }
 
     public List<Employee> getAllEmployee() {
-        return employeeRepository.findAll();
+        List<Employee> employees = employeeRepository.findAll();
+        if(employees.isEmpty())
+            throw new InputValidationException("Not found!!");
+        return employees;
     }
 
     public List<Employee> getEmployeeById(String id) {
+        InputValidationException.validateInputParameter(id);
         List<Employee> employees = employeeRepository.findByEmpId(id);
         if (employees.isEmpty())
             throw new NotFoundException("No employee found for id: "+id);
@@ -51,11 +57,19 @@ public class EmployeeService {
 
 
     public Employee updateEmployeeById(String id, Employee emp){
+        InputValidationException.validateInputParameter(id);
+        List<Employee> employees = employeeRepository.findByEmpId(id);
+        if (employees.isEmpty())
+            throw new NotFoundException("No employee found for id: "+id);
         return employeeRepository.save(emp);
     }
 
     public Employee findByKeyFirstName(String id, String firstName) {
-        return employeeRepository.findByEmpIdAndFirstName(id, firstName);
+        InputValidationException.validateInputParameter(id);
+        Employee employees = employeeRepository.findByEmpIdAndFirstName(id,firstName);
+        if (employees == null)
+            throw new NotFoundException("No employee for : "+id+" and first name "+firstName+" found");
+        return employees;
     }
 
 

@@ -3,6 +3,7 @@ package spring.spot.trial.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.AwardToIndividual;
+import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.AwardToIndividualRepository;
 
 import java.util.List;
@@ -24,11 +25,17 @@ public class AwardToIndividualService {
 
 
     public List<AwardToIndividual> getAllAwards() {
-        return awardToIndividualRepository.findAll();
+        List<AwardToIndividual> awardToIndividuals = awardToIndividualRepository.findAll();
+        if(awardToIndividuals.isEmpty())
+            throw new NotFoundException("Not found!!");
+        return awardToIndividuals;
     }
 
     public AwardToIndividual getAwardsByAwardName(String awardName) {
-        return awardToIndividualRepository.findByAwardName(awardName);
+        AwardToIndividual awardToIndividuals = awardToIndividualRepository.findByAwardName(awardName);
+        if(awardToIndividuals == null)
+            throw new NotFoundException("Award with name "+awardName+" not found");
+        return awardToIndividuals;
     }
 
     public void deleteAwardsByName(String awardName) {

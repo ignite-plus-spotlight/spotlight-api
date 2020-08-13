@@ -49,6 +49,17 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(errorDetails,internalServerError);
     }
 
+    @ExceptionHandler(value = {NotAcceptableException.class})
+    public ResponseEntity<Object> handleInvalidInputException(NotAcceptableException e)
+    {
+        HttpStatus notAcceptable = HttpStatus.NOT_ACCEPTABLE;
 
+        ErrorDetails errorDetails = new ErrorDetails(
+                e.getMessage(),
+                notAcceptable,
+                ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        return new ResponseEntity<>(errorDetails,notAcceptable);
+    }
 
 }

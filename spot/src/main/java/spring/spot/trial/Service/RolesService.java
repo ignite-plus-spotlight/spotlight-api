@@ -4,6 +4,7 @@ package spring.spot.trial.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.Roles;
+import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.RolesRepository;
 
 import java.util.List;
@@ -25,18 +26,28 @@ public class RolesService {
 
 
     public List<Roles> getAllRoles() {
-        return rolesRepository.findAll();
+        List<Roles> roles = rolesRepository.findAll();
+        if(roles.isEmpty())
+            throw new NotFoundException("No such role found!");
+        return roles;
     }
 
     public Roles getAllRolesByName(String name) {
-        return rolesRepository.findByRoleName(name);
+        Roles roles = rolesRepository.findByRoleName(name);
+        if(roles == null)
+            throw new NotFoundException("No role with name "+name+" found!");
+        return roles;
     }
 
 
 
     public Roles updateRolesByName(String name, Roles roles) {
+        Roles role = rolesRepository.findByRoleName(name);
+        if(role == null)
+            throw new NotFoundException("No role with name "+name+" found!");
         return rolesRepository.save(roles);
     }
+
 
     public void deleteRolesByName(String name) {
         rolesRepository.deleteById(name);

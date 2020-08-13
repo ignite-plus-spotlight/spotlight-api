@@ -24,8 +24,7 @@ public class TeamController {
 
     @GetMapping("/team")
     public List<Team> getAllTeam() {
-
-        return (List<Team>) teamService.getAllTeam();
+        return teamService.getAllTeam();
     }
 
 
@@ -46,8 +45,8 @@ public class TeamController {
         return teamService.updateTeamByManagerId(id,team);
     }
 
-    @PutMapping(value = "/team/{empId}/{teamId}/{employeeId}")
-    public Team updateIntoListOfMembers(@PathVariable("empId") String empId, @PathVariable("teamId") String managerId, @PathVariable("employeeId") int teamId)
+    @PostMapping(value = "/team/{empId}/{managerId}/{teamId}")
+    public Team updateIntoListOfMembers(@PathVariable("empId") String empId, @PathVariable("managerId") String managerId, @PathVariable("teamId") int teamId)
     {
         return teamService.updateIntoList(empId,managerId,teamId);
     }

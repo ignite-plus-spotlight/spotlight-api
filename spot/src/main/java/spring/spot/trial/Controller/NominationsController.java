@@ -64,17 +64,14 @@ public class NominationsController {
 
 
     //to nominate a person
-    @PostMapping("/nominate")
-    public Nominations nominate(@RequestBody Nominate nominate)
+    @PostMapping("/nominate/{pollId}/{employeeId}")
+    public Nominations nominate(@RequestBody Nominate nominate,@PathVariable("pollId") UUID pollId,@PathVariable("employeeId") String employeeId)
     {
+        UUID nominationId;  String managerId; String description;  String pollName;
 
-        UUID pollId; UUID nominationId; String employeeId; String managerId; String description;  String pollName;
-        pollId = nominate.getPollId();
-        employeeId = nominate.getEmployeeId();
         managerId = nominate.getManagerId();
         description = nominate.getDescription();
         pollName = nominate.getPollName();
         return nominationsService.nominate(pollId,employeeId,managerId,description,pollName);
     }
-
 }

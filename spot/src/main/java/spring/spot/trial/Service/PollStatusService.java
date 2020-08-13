@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.Nominations;
 import spring.spot.trial.Entity.PollStatus;
+import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.EmployeeRepository;
 import spring.spot.trial.Repository.NominationsRepository;
 import spring.spot.trial.Repository.PollRepository;
@@ -30,14 +31,23 @@ public class PollStatusService {
     }
 
     public List<PollStatus> getAllPollStatus(){
-        return pollStatusRepository.findAll();
+        List<PollStatus> pollStatuses = pollStatusRepository.findAll();
+        if(pollStatuses.isEmpty())
+            throw new NotFoundException("No poll statuses found!");
+        return pollStatuses;
     }
 
     public List<PollStatus> getAllByPollId(UUID id){
+        List<PollStatus> pollStatuses = pollStatusRepository.findByPollId(id);
+        if(pollStatuses.isEmpty())
+            throw new NotFoundException("No poll status with id "+id+" found");
         return pollStatusRepository.findByPollId(id);
     }
 
     public PollStatus getAllByPollIdAndNominationId(UUID id,UUID nominationId){
+        PollStatus pollStatus = pollStatusRepository.findByPollIdAndNominationId(id,nominationId);
+        if(pollStatus == null)
+            throw new NotFoundException("Not poll status for nomination id "+id+" found");
         return pollStatusRepository.findByPollIdAndNominationId(id,nominationId);
     }
 
