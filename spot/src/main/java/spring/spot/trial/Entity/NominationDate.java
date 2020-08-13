@@ -25,7 +25,6 @@ public class NominationDate implements Serializable {
     @PrimaryKeyColumn(name = "nomination_end_date", ordinal = 1,type = PrimaryKeyType.PARTITIONED)
     private Date nominationEndDate;
 
-    @Generated
     @Column("poll_id")
     private UUID pollId;
 

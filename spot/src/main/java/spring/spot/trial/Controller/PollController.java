@@ -6,6 +6,7 @@ import spring.spot.trial.Entity.Poll;
 import spring.spot.trial.Service.PollService;
 
 import java.util.List;
+import java.util.UUID;
 
 @CrossOrigin("*")
 @RequestMapping
@@ -23,7 +24,7 @@ public class PollController {
     public List<Poll> getAllPolls(){ return pollService.getAllPoll();}
 
     @GetMapping("/poll/{id}")
-    public Poll getPollById(@PathVariable("id") String id){ return pollService.getPollbyId(id);}
+    public Poll getPollById(@PathVariable("id") UUID id){ return pollService.getPollbyId(id);}
 
     @PostMapping("/poll")
     public Poll createPoll(Poll poll){ return pollService.createPoll(poll);}

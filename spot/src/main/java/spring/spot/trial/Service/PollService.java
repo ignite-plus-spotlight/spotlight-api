@@ -6,6 +6,7 @@ import spring.spot.trial.Entity.Poll;
 import spring.spot.trial.Repository.PollRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PollService {
@@ -22,7 +23,7 @@ public class PollService {
         return pollRepository.findAll();
     }
 
-    public Poll getPollbyId(String pollId) { return pollRepository.findByPollId(pollId); }
+    public Poll getPollbyId(UUID pollId) { return pollRepository.findByPollId(pollId); }
 
     public Poll updateEmpRolesById(Poll poll) {
         return pollRepository.save(poll);

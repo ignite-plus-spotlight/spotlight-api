@@ -7,6 +7,7 @@ import spring.spot.trial.Repository.*;
 import spring.spot.trial.dto.NominationDTO;
 import spring.spot.trial.dto.PollProcessDTO;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,11 +48,11 @@ public class NominationsService {
         return nominationsRepository.findAll();
     }
 
-    public List<Nominations> getNominationsById(String pollId){
+    public List<Nominations> getNominationsById(UUID pollId){
         return  nominationsRepository.findByPollId(pollId);
     }
 
-    public List<Nominations> getNominationsByPollIdAndNominationId(String pollId,String nominationId){
+    public List<Nominations> getNominationsByPollIdAndNominationId(UUID pollId,String nominationId){
         return nominationsRepository.findByPollIdAndNominationId(pollId,nominationId);
     }
 
@@ -75,8 +76,8 @@ public class NominationsService {
 
         NominationDate nominationDate = new NominationDate();
         nominationDate.setPollId(pollId);
-        nominationDate.setNominationStartDate(nomStart);
         nominationDate.setNominationEndDate(nomEnd);
+        nominationDate.setNominationStartDate(nomStart);
         nominationDateRepository.save(nominationDate);
 
         PollingDate pollingDate = new PollingDate();
@@ -89,7 +90,7 @@ public class NominationsService {
 
     }
 
-    public PollProcessDTO pollProcess(String pollId){
+    public PollProcessDTO pollProcess(UUID pollId){
         PollProcessDTO pollProcessDTO = new PollProcessDTO();
         List<NominationDTO> nominationDTOS = new ArrayList<>();
         List<Nominations> nominations = nominationsRepository.findByPollId(pollId);
@@ -108,8 +109,14 @@ public class NominationsService {
         return pollProcessDTO;
     }
 
-    public Nominations nominate(UUID pollId, String nominationId, String employeeId, String managerId, String description, Date createdDate, String pollName)
+    //manager nominates
+    public Nominations nominate(UUID pollId, String employeeId, String managerId, String description, String pollName)
     {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date createdDate = new Date();
+
+        UUID nominationId=UUID.randomUUID();
+
         Nominations nominations = new Nominations();
         nominations.setNominationId(nominationId);
         nominations.setPollId(pollId);
@@ -128,4 +135,6 @@ public class NominationsService {
 
         return nominations;
     }
+
+
 }

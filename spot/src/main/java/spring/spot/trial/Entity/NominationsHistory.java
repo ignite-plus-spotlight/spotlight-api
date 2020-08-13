@@ -10,6 +10,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Table("nominations_history")
@@ -25,7 +26,7 @@ public class NominationsHistory implements Serializable {
     private Date createdDate;
 
     @Column
-    public String nominationId;
+    public UUID nominationId;
 
     @Column
     public String employeeId;

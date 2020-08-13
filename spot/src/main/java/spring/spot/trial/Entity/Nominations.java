@@ -2,6 +2,7 @@ package spring.spot.trial.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 import org.apache.tinkerpop.shaded.kryo.NotNull;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
@@ -23,7 +24,7 @@ public class Nominations implements Serializable {
     public UUID pollId;
 
     @PrimaryKeyColumn(name = "nomination_id",ordinal = 0,type = PrimaryKeyType.CLUSTERED)
-    public String nominationId;
+    public UUID nominationId;
 
     @NotNull
     @Column("emp_id")

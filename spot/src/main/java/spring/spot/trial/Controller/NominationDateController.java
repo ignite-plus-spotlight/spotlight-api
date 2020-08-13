@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import spring.spot.trial.Entity.EmpRoles;
 import spring.spot.trial.Entity.NominationDate;
 import spring.spot.trial.Service.NominationDateService;
+import spring.spot.trial.dto.PopUpDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,14 @@ public class NominationDateController {
     @PostMapping("/nominationdate")
     public NominationDate createNominationDate(@RequestBody NominationDate nominationDate) {
         return nominationDateService.createNominationDate(nominationDate);
+    }
+
+    //to show if current date matches
+    @GetMapping("/nominationalert")
+    public List<PopUpDTO> alert()
+    {
+        Date Today = new Date();
+        return nominationDateService.popUp(Today);
     }
 
 }

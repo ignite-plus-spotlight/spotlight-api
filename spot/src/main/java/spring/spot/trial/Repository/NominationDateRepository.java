@@ -8,6 +8,6 @@ import java.util.Date;
 
 @EnableCassandraRepositories
 public interface NominationDateRepository extends CassandraRepository<NominationDate, Date> {
-    NominationDate findByNominationStartDate(Date nominationStartDate, Date nominationEndDate);
+    NominationDate findByNominationStartDateAndNominationEndDate(Date nominationStartDate, Date nominationEndDate);
     NominationDate save(NominationDate nominationDate);
 }

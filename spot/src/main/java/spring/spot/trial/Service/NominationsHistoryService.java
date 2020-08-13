@@ -28,8 +28,9 @@ public class NominationsHistoryService {
         return nominationsHistoryRepository.findByManagerId(manager_id);
     }
 
-    public NominationsHistory getByManagerIdAndDate(String id, Date date)
+    public NominationsHistory getByManagerIdAndDate(String id)
     {
+        Date date = new Date();
         return nominationsHistoryRepository.findByManagerIdAndCreatedDate(id, date);
     }
 
