@@ -135,6 +135,7 @@ public class NominationsService {
         nominationsHistory.setManagerId(managerId);
         nominationsHistory.setNominationId(nominationId);
         nominationsHistory.setPollName(pollName);
+        nominationsHistory.setDescription(description);
         nominationsHistoryRepository.save(nominationsHistory);
 
         return nominations;

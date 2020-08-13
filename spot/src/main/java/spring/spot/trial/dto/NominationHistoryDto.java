@@ -13,4 +13,6 @@ public class NominationHistoryDto {
     private Employee employee;
     private String manager_id;
     private LocalDateTime createDate;
+    private String pollName;
+    private String description;
 }

@@ -34,4 +34,7 @@ public class NominationsHistory implements Serializable {
     @NotNull
     @Column("poll_name")
     private String pollName;
+
+    @Column
+    private String description;
 }

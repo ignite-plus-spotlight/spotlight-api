@@ -50,7 +50,7 @@ public class NominationsHistoryService {
     public List<NominationHistoryDto> nominationHistory(String managerId)
     {
         List<NominationsHistory> nominationsHistories = nominationsHistoryRepository.findByManagerId(managerId);
-        List<NominationHistoryDto> nominationDTOS = new ArrayList<>();
+        List<NominationHistoryDto> nominationHistoryDtos = new ArrayList<>();
         for(NominationsHistory nominationsHistory : nominationsHistories)
         {
             NominationHistoryDto nominationHistoryDto = new NominationHistoryDto();
@@ -59,8 +59,10 @@ public class NominationsHistoryService {
             nominationHistoryDto.setEmployee(employeeRepository.findByEmpId(nominationsHistory.getEmployeeId()).get(0));
             nominationHistoryDto.setManager_id(nominationsHistory.getManagerId());
             nominationHistoryDto.setNominationId(nominationsHistory.getNominationId());
-            nominationDTOS.add(nominationHistoryDto);
+            nominationHistoryDto.setPollName(nominationsHistory.getPollName());
+            nominationHistoryDto.setDescription(nominationsHistory.getDescription());
+            nominationHistoryDtos.add(nominationHistoryDto);
         }
-        return nominationDTOS;
+        return nominationHistoryDtos;
     }
 }

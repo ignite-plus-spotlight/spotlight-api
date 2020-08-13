@@ -1,9 +1,7 @@
 package spring.spot.trial.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spring.spot.trial.Entity.Employee;
 import spring.spot.trial.Entity.Nominations;
-import spring.spot.trial.Entity.Poll;
 import spring.spot.trial.Entity.PollStatus;
 import spring.spot.trial.Repository.EmployeeRepository;
 import spring.spot.trial.Repository.NominationsRepository;
