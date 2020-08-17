@@ -138,7 +138,7 @@ public class NominationsService {
         nominationsHistory.setEmployeeId(employeeId);
         nominationsHistory.setManagerId(managerId);
         nominationsHistory.setNominationId(nominationId);
-        nominationsHistory.setPollName(pollName);
+        nominationsHistory.setPollName(pollRepository.findByPollId(pollId).getPollName());
         nominationsHistory.setDescription(description);
         nominationsHistoryRepository.save(nominationsHistory);
 

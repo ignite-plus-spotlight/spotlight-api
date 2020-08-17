@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import spring.spot.trial.Entity.Employee;
 import spring.spot.trial.Exception.InputValidationException;
 import spring.spot.trial.Service.EmployeeService;
+import spring.spot.trial.dto.HierarchyDTO;
 import spring.spot.trial.dto.ManagerDTO;
 
 import java.util.List;
@@ -61,6 +62,12 @@ public class EmployeeController {
     @GetMapping("/manager/{id}")
     public ManagerDTO getManager(@PathVariable("id") String id){
         return employeeService.getManagerDetails(id);
+    }
+
+    @GetMapping("levels/{headId}")
+    public List<HierarchyDTO> levels(@PathVariable("headId") String headId)
+    {
+        return employeeService.levels(headId);
     }
 
 }

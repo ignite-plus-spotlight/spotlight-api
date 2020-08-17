@@ -48,7 +48,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeeById(String id) {
-        InputValidationException.validateInputParameter(id);
+        //InputValidationException.validateInputParameter(id);
         List<Employee> employees = employeeRepository.findByEmpId(id);
         if (employees.isEmpty())
             throw new NotFoundException("No employee found for id: "+id);
@@ -102,42 +102,27 @@ public class EmployeeService {
         return managerDTO;
     }
 
-    /*public ManagersGivenAwardsDTO getAwardMDetails(String id)
+    public List<HierarchyDTO> levels(String headId)
     {
-        ManagersGivenAwardsDTO managersGivenAwardsDTO = new ManagersGivenAwardsDTO();
-        //manager emp details
-        managersGivenAwardsDTO.setEmployee(employeeRepository.findByEmpId(id).get(0));
-        List<TeamIndividualDetailsDTO> teamIndividualDetailsDTOS = new ArrayList<>();
-        List<Team> teams = teamRepository.findByManagerId(id);
-        for (Team t : teams)
+        HierarchyDTO hierarchy = new HierarchyDTO();
+        hierarchy.setValue(employeeRepository.findByEmpId(headId).get(0));
+        List<Team> teams = teamRepository.findByManagerId(headId);
+        List<HierarchyDTO> children = new ArrayList<>();
+        if(teams.isEmpty())
         {
-            TeamIndividualDetailsDTO teamIndividualDetailsDTO = new TeamIndividualDetailsDTO();
-           teamIndividualDetailsDTO.setEmployeeId(t.getEmployeeId());
-            teamIndividualDetailsDTO.setTeamName(t.getTeamName());
-            List<Employee> e = new ArrayList<>();
-            List<EmployeeDetailsDTO> employeeDetailsDTOS=new ArrayList<>();  //is to be set to tdo.setEmpdto
-                for (Employee employee : e)
-                {
-                    List<EmployeeAwardsTM> employeeAwards = new ArrayList<>();  //set to empdto
-                   EmployeeDetailsDTO employeeDetailsDTO = new EmployeeDetailsDTO();  //add to empdtos
-                      String empid = employee.getEmpId();
-                    for (EmployeeAwardsTM employeeAward : employeeAwards)
-                    {
-                     employeeAwards = employeeAwardsTMRepository.findByEmpId(empid);
-                     }
-                    employeeDetailsDTO.setFirstName(employee.getFirstName());
-                    employeeDetailsDTO.setEmpId(employee.getEmpId());
-                    employeeDetailsDTO.setLastName(employee.getLastName());
-                    employeeDetailsDTO.setEmpId(employee.getEmpEmail());
-                    employeeDetailsDTO.setAwards(employeeAwards);
-                    employeeDetailsDTOS.add(employeeDetailsDTO);
-
-                    }
-                    teamIndividualDetailsDTO.setEmployeeDetailsDTOS(employeeDetailsDTOS);
-                    teamIndividualDetailsDTOS.add(teamIndividualDetailsDTO);
+            return null;
         }
-        managersGivenAwardsDTO.setTeamIndividualDetailsDTOS(teamIndividualDetailsDTOS);
-        return managersGivenAwardsDTO;
-    }*/
-
+        for (Team team : teams)
+        {
+           for (String id : team.getMembers())
+           {
+               HierarchyDTO h = new HierarchyDTO();
+               h.setValue(employeeRepository.findByEmpId(id).get(0));
+               h.setChildren(levels(id));
+               children.add(h);
+           }
+        }
+        hierarchy.setChildren(children);
+        return children;
+    }
 }

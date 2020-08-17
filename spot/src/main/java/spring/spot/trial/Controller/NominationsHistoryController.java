@@ -30,7 +30,6 @@ public class NominationsHistoryController {
     public NominationsHistory createNominationsHistory(@RequestBody NominationsHistory nominationsHistory){return nominationsHistoryService.createNominationsHistory(nominationsHistory);}
 
 
-
     @GetMapping("/nominationhistory/manager/{id}/createddate")
     public NominationsHistory getNominationHistoryByDate(@PathVariable("id") String id)
     {

@@ -9,6 +9,7 @@ import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.*;
 import spring.spot.trial.dto.AwardsGivenByManagerDTO;
 import spring.spot.trial.dto.EmpAwardWinnersUnderManagerDTO;
+import spring.spot.trial.util.VelToPdf;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,8 +65,8 @@ public class EmployeeAwardsService {
         emd.setTimestamp(etm.getTimestamp());
         employeeAwardsMRepository.save(emd);
 
-//        CertGenerate.certGenerate(employee, employeeAwardsTM);
-
+        String htmlData = CertGenerate.certGenerate(employee, employeeAwardsTM);
+        VelToPdf.velocityToPdf(htmlData);
         return employeeAwardsTM;
     }
 

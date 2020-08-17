@@ -15,10 +15,10 @@ public class CertGenerate {
 
         VelocityContext context = new VelocityContext();
         context.put("name", employee.getFirstName()+" "+employee.getLastName());
-        context.put("description", "for being someone we can always count on! I'm so grateful for all of your hard work. " +
-                "The entire team thanks you for everything you do. It's rare to come across people who are so dedicated and trustworthy");
+        context.put("description", employeeAwardsTM.getDescription());
 
-        Template t = ve.getTemplate("src/main/resources/certificate.vm");
+        Template t =  ve.getTemplate( CertGenerate.class.getClassLoader().getResource("certificate.vm").getPath() );
+
 
         StringWriter writer = new StringWriter();
         t.merge(context, writer);

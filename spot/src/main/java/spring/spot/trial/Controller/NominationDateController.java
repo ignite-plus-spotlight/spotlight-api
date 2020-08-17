@@ -46,5 +46,4 @@ public class NominationDateController {
         LocalDateTime Today = LocalDateTime.now();
         return nominationDateService.popUp(Today);
     }
-
 }
