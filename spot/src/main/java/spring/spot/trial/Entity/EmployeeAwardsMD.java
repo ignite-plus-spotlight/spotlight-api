@@ -9,6 +9,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /*Awards received by Individual in manager dashboard*/
@@ -37,12 +38,11 @@ public class EmployeeAwardsMD implements Serializable {
     @Column("emp_points")
     private int empPoints;
 
-
     @Column("manager_name")
     private String managerName;
 
     @Column
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
     @Column
     private String imgsrc;

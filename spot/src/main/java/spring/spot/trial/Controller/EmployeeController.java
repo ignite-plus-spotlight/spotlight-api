@@ -45,7 +45,7 @@ public class EmployeeController {
 
    @GetMapping(value="/employee/{id}/{firstName}")
     public Employee findByKeyFirstName(@PathVariable("id") String id, @PathVariable("firstName") String firstName){
-        return employeeService.findByKeyFirstName(id, firstName);
+        return employeeService.findByIdAndFirstName(id, firstName);
     }
 
     @PostMapping("/employee")

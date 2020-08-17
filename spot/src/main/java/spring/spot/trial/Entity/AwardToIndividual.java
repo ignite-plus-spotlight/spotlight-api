@@ -26,6 +26,4 @@ public class AwardToIndividual implements Serializable {
     private java.util.Date timestamp;
     @Column
     private String imgsrc;
-
-
 }

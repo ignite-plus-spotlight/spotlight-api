@@ -64,13 +64,14 @@ public class EmployeeService {
         return employeeRepository.save(emp);
     }
 
-    public Employee findByKeyFirstName(String id, String firstName) {
+    public Employee findByIdAndFirstName(String id, String firstName) {
         InputValidationException.validateInputParameter(id);
         Employee employees = employeeRepository.findByEmpIdAndFirstName(id,firstName);
         if (employees == null)
             throw new NotFoundException("No employee for : "+id+" and first name "+firstName+" found");
         return employees;
     }
+
 
 
     public ManagerDTO getManagerDetails(String id) {

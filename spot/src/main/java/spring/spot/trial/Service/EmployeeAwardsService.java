@@ -11,6 +11,7 @@ import spring.spot.trial.dto.AwardsGivenByManagerDTO;
 import spring.spot.trial.dto.EmpAwardWinnersUnderManagerDTO;
 import spring.spot.trial.util.VelToPdf;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +38,10 @@ public class EmployeeAwardsService {
         EmployeeAwardsTM emp = new EmployeeAwardsTM();
         AwardToIndividual awardToIndividual = awardToIndividualRepository.findByAwardName(award_name);
         Employee employee1 = employeeRepository.findByEmpId(manager_id).get(0);
+        LocalDateTime now = LocalDateTime.now();
         emp.setAwardedById(manager_id);
         emp.setAwardName(award_name);
+        emp.setTimestamp(now);
         emp.setDepartment(department);
         emp.setDescription(awardToIndividual.getDescription());
         emp.setEmpId(empId);
@@ -62,11 +65,11 @@ public class EmployeeAwardsService {
         emd.setImgsrc(etm.getImgsrc());
         emd.setManagerName(etm.getManagerName());
         emd.setPeriodName(etm.getPeriodName());
-        emd.setTimestamp(etm.getTimestamp());
+        emd.setTimestamp(now);
         employeeAwardsMRepository.save(emd);
-
+/*
         String htmlData = CertGenerate.certGenerate(employee, employeeAwardsTM);
-        VelToPdf.velocityToPdf(htmlData);
+        VelToPdf.velocityToPdf(htmlData);*/
         return employeeAwardsTM;
     }
 
@@ -100,10 +103,18 @@ public class EmployeeAwardsService {
         return employeesAwards;
     }
 
+    public List<EmployeeAwardsTM> getByIdAndPeriod(String id, String period)
+    {
+        return employeeAwardsTMRepository.findByEmpIdAndPeriodName(id,period);
+    }
 
-
-
-
+    public int countAwards(String empId, String periodName)
+    {
+        int count = 0;
+        List<EmployeeAwardsTM> employeeAwardsTMS = employeeAwardsTMRepository.findByEmpIdAndPeriodName(empId, periodName);
+        count = employeeAwardsTMS.size();
+        return count;
+    }
 
     public AwardsGivenByManagerDTO getWinnersUnderManager(String managerId)
     {
@@ -131,4 +142,3 @@ public class EmployeeAwardsService {
         return awardsGivenByManagerDTO;
     }
 }
-
