@@ -6,7 +6,6 @@ import spring.spot.trial.Entity.Approval;
 
 @EnableCassandraRepositories
 public interface ApprovalRepository extends CassandraRepository<Approval, String> {
-    Approval findByManagerId(String headId);
+    Approval findByApprovedById(String headId);
     Approval save(Approval approval);
-
 }

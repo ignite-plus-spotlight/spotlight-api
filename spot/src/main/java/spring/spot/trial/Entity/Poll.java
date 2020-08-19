@@ -25,5 +25,8 @@ public class Poll implements Serializable {
     private String pollName;
 
     @Column
+    private String period;
+
+    @Column
     private String description;
 }

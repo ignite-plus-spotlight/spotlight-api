@@ -2,12 +2,10 @@ package spring.spot.trial.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spring.spot.trial.App;
 import spring.spot.trial.Entity.Approval;
 import spring.spot.trial.Repository.ApprovalRepository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ApprovalService {
@@ -27,7 +25,7 @@ public class ApprovalService {
     }
 
     public Approval getApprovalByIdAndHeadId(String headId){
-        return  approvalRepository.findByManagerId(headId);
+        return  approvalRepository.findByApprovedById(headId);
     }
 
 }

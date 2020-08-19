@@ -37,4 +37,7 @@ public class NominationsHistory implements Serializable {
 
     @Column
     private String description;
+
+    @Column
+    private String period;
 }

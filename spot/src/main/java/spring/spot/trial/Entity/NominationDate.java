@@ -27,4 +27,5 @@ public class NominationDate implements Serializable {
     @Column("process_id")
     private UUID pollId;
 
+
 }

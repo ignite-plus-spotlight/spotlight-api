@@ -40,6 +40,9 @@ public class NominationsService {
     @Autowired
     NominationsHistoryRepository nominationsHistoryRepository;
 
+    @Autowired
+    ApprovalRepository approvalRepository;
+
 
     public NominationsService(NominationsRepository nominationsRepository){
         this.nominationsRepository = nominationsRepository;
@@ -59,18 +62,20 @@ public class NominationsService {
 
     public PostIntoMultipleEntity postIntoMultipleTables(PostIntoMultipleEntity postIntoMultipleEntity )
     {
-        String pollName; String description; LocalDateTime nomStart; LocalDateTime nomEnd; LocalDateTime pollStart; LocalDateTime pollEnd;
+        String pollName; String description; LocalDateTime pollStart; LocalDateTime pollEnd; String period;
 
         pollName = postIntoMultipleEntity.getPollName();
         description = postIntoMultipleEntity.getDescription();
         pollStart = postIntoMultipleEntity.getPollStart();
         pollEnd = postIntoMultipleEntity.getPollEnd();
+        period = postIntoMultipleEntity.getPeriod();
         UUID pollId = randomUUID();
 
         Poll poll = new Poll();
         poll.setPollId(pollId);
         poll.setPollName(pollName);
         poll.setDescription(description);
+        poll.setPeriod(period);
         pollRepository.save(poll);
 
         NominationDate nominationDate = new NominationDate();
@@ -83,10 +88,9 @@ public class NominationsService {
         pollingDate.setPollName(pollName);
         pollingDate.setPollStartDate(pollStart);
         pollingDate.setPollEndDate(pollEnd);
+        pollingDate.setPollId(pollId);
         pollingDateRepository.save(pollingDate);
-
         return postIntoMultipleEntity;
-
     }
 
     //manager nominates
@@ -103,6 +107,7 @@ public class NominationsService {
         nominations.setManagerId(managerId);
         nominations.setEmployeeId(employeeId);
         nominations.setDescription(description);
+        nominations.setPeriod(pollRepository.findByPollId(pollId).getPeriod());
         nominationsRepository.save(nominations);
 
         NominationsHistory nominationsHistory = new NominationsHistory();
@@ -112,12 +117,12 @@ public class NominationsService {
         nominationsHistory.setNominationId(nominationId);
         nominationsHistory.setPollName(pollRepository.findByPollId(pollId).getPollName());
         nominationsHistory.setDescription(description);
+        nominationsHistory.setPeriod(pollRepository.findByPollId(pollId).getPeriod());
         nominationsHistoryRepository.save(nominationsHistory);
 
         return nominations;
     }
 
-    //post poll id into poll date table
     public List<NominationsApprovalDTO> approvalAlert(String yourEmpId)
     {
       LocalDateTime today = LocalDateTime.now();
@@ -137,6 +142,7 @@ public class NominationsService {
                       nominationsApprovalDTO.setPollId(pollingDate.getPollId());
                       Poll poll = pollRepository.findByPollId(pollingDate.getPollId());
                       nominationsApprovalDTO.setDescription(poll.getDescription());
+                      nominationsApprovalDTO.setPeriod(poll.getPeriod());
                       nominationsApprovalDTO.setHeadId(memberId);
                       Nominations nominations = nominationsRepository.findByManagerIdAndPollId(memberId,pollingDate.getPollId());
                       nominationsApprovalDTO.setNominationId(nominations.getNominationId());
@@ -150,4 +156,22 @@ public class NominationsService {
       }
     return nominationsApprovalDTOS;
     }
+
+    public Approval initialApprove(NominationsApprovalDTO nominationsApprovalDTO, String yourId)
+    {
+        Approval approval = new Approval();
+        approval.setApprovedById(yourId);
+        approval.setDescription(nominationsApprovalDTO.getDescription());
+        approval.setDirectorName(employeeRepository.findByEmpId(yourId).get(0).getFirstName()+" "+employeeRepository.findByEmpId(yourId).get(0).getLastName());
+        approval.setEndDate(nominationsApprovalDTO.getEndDate());
+        approval.setManagerId(nominationsApprovalDTO.getHeadId());
+        approval.setManagerName(employeeRepository.findByEmpId(nominationsApprovalDTO.getHeadId()).get(0).getFirstName()+" "+employeeRepository.findByEmpId(nominationsApprovalDTO.getHeadId()).get(0).getLastName());
+        approval.setNominationId(nominationsApprovalDTO.getNominationId());
+        approval.setNominee_id(nominationsApprovalDTO.getNomineeId());
+        approval.setNomineeName(nominationsApprovalDTO.getNominee().firstName+" "+nominationsApprovalDTO.getNominee().firstName);
+        approval.setProcessId(nominationsApprovalDTO.getPollId());
+
+        return approvalRepository.save(approval);
+    }
+
 }

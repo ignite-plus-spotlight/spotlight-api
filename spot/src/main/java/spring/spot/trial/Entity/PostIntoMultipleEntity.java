@@ -15,4 +15,5 @@ public class PostIntoMultipleEntity {
     String description;
     LocalDateTime pollStart;
     LocalDateTime pollEnd;
+    String period;
 }

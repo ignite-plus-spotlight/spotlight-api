@@ -35,6 +35,9 @@ public class Nominations implements Serializable {
     @Column("emp_id")       //nominee
     private String employeeId;
 
+    @Column
+    private String period;
+
     //nominated_by's message
     @NotNull
     @Column()

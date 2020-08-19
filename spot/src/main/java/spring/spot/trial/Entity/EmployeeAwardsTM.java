@@ -10,7 +10,6 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /*Awards received by Individual team dashboard*/
 
