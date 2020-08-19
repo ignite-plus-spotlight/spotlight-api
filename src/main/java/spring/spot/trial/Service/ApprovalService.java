@@ -2,7 +2,6 @@ package spring.spot.trial.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spring.spot.trial.App;
 import spring.spot.trial.Entity.Approval;
 import spring.spot.trial.Repository.ApprovalRepository;
 
@@ -26,12 +25,9 @@ public class ApprovalService {
         return (List<Approval>) approvalRepository.findAll();
     }
 
-    /*public Approval getApprovalById(UUID id){
-        return  approvalRepository.findById(id);
-    }*/
-
-    public List<Approval> getApprovalByIdAndHeadId(UUID id,String headId){
-        return (List<Approval>) approvalRepository.findByIdAndHeadId(id,headId);
+    public List<Approval> getApprovalById(UUID id){
+        return  approvalRepository.findByNominationId(id);
     }
+
 
 }

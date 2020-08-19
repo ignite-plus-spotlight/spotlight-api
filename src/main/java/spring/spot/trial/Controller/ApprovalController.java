@@ -28,15 +28,11 @@ public class ApprovalController {
         return (List<Approval>) approvalService.getAllApprovals();
     }
 
-    /*@GetMapping("/approvals/nominationId/{nominationId}")
-    public Approval getApprovalById(@PathVariable("nominationId")UUID nominationId){
+    @GetMapping("/approvals/nominationId/{nominationId}")
+    public List<Approval> getApprovalById(@PathVariable("nominationId")UUID nominationId){
         return approvalService.getApprovalById(nominationId);
-    }*/
-
-    @GetMapping("/approvals/nominationId/{id}/headId/{headId}")
-    public List<Approval> getApprovalByIdAndHeadId(@PathVariable("id")UUID nominationId,@PathVariable("headId")String headId){
-        return (List<Approval>) approvalService.getApprovalByIdAndHeadId(nominationId,headId);
     }
+
 
     @PostMapping("/approvals")
     public Approval createApprovals(@RequestBody Approval approval){

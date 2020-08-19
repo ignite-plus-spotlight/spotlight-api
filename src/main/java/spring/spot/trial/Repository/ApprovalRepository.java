@@ -9,8 +9,7 @@ import java.util.UUID;
 
 @EnableCassandraRepositories
 public interface ApprovalRepository extends CassandraRepository<Approval, UUID> {
-    //Approval findById(UUID nominationId);
-    List<Approval> findByIdAndHeadId(UUID nominationId,String headId);
+    List<Approval> findByNominationId(UUID nominationId);
     Approval save(Approval approval);
 
 
