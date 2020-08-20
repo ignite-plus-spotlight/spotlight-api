@@ -23,7 +23,10 @@ public class Approval implements Serializable {
     @PrimaryKeyColumn(name = "approved_by_id",ordinal = 0,type = PrimaryKeyType.PARTITIONED)
     public String approvedById; //goes to emp_awards tableS as awarded_by_id //nothing but director id
 
-    @Column("nomination_id")
+    @PrimaryKeyColumn(name = "process_id",ordinal = 0,type = PrimaryKeyType.CLUSTERED)
+    private UUID processId;  //take poll id from nominations approval dto
+
+    @PrimaryKeyColumn(name = "nomination_id", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
     public UUID nominationId;
 
     @Column("nominee_id")
@@ -44,8 +47,6 @@ public class Approval implements Serializable {
     @Column("director_name")
     private String directorName; //your name
 
-    @Column("process_id")
-    private UUID processId;  //take poll id from nominations approval dto
 
     @Column("process_end_date")
     private LocalDateTime endDate;

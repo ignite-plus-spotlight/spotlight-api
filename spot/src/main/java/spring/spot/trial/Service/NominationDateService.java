@@ -3,10 +3,12 @@ package spring.spot.trial.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.NominationDate;
+import spring.spot.trial.Entity.Nominations;
 import spring.spot.trial.Entity.Poll;
 import spring.spot.trial.Exception.NotAcceptableException;
 import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.NominationDateRepository;
+import spring.spot.trial.Repository.NominationsRepository;
 import spring.spot.trial.Repository.PollRepository;
 import spring.spot.trial.dto.PopUpDTO;
 
@@ -23,6 +25,8 @@ NominationDateRepository nominationDateRepository;
 
 @Autowired
     PollRepository pollRepository;
+@Autowired
+    NominationsRepository nominationsRepository;
 
     public NominationDateService(NominationDateRepository nominationDateRepository) {
         this.nominationDateRepository = nominationDateRepository;
@@ -47,8 +51,9 @@ NominationDateRepository nominationDateRepository;
     //manager pop up to nominate based on date
     //check in nominations table for the current date
     //if its today return dto
+    //if already nominated, don't show this
 
-    public List<PopUpDTO> popUp(LocalDateTime Today)
+    public List<PopUpDTO> popUp(LocalDateTime Today,String yourId)
     {
         List<PopUpDTO> popUpDTOS = new ArrayList<>();
 
@@ -76,8 +81,8 @@ NominationDateRepository nominationDateRepository;
                popUpDTO.setNominationEndDate(endDate);
                popUpDTO.setNominationStartDate(startDate);
                popUpDTO.setPollName(pollName);
+               if (nominationsRepository.findByManagerIdAndPollId(yourId,pollId) != null)
                popUpDTOS.add(popUpDTO);
-
            }
 
         }

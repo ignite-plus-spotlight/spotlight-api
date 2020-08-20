@@ -23,12 +23,12 @@ public class ApprovalController {
     }
 
     @GetMapping("/approvals")
-    public List<Approval> getALlApprovals() {
+    public List<Approval> getAllApprovals() {
         return approvalService.getAllApprovals();
     }
 
     @GetMapping("/approvalList/{headId}")
-    public Approval getApprovalByIdAndHeadId(@PathVariable("headId")String headId){
+    public List<Approval> getApprovalByIdAndHeadId(@PathVariable("headId")String headId){
         return approvalService.getApprovalByIdAndHeadId(headId);
     }
 

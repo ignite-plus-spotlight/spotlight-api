@@ -26,7 +26,7 @@ public class NominationDateController {
 
     @GetMapping("/nominationdate")
     public List<NominationDate> getAllNominationdates() {
-        return (List<NominationDate>) nominationDateService.getAllNominations();
+        return nominationDateService.getAllNominations();
     }
 
     @GetMapping(value = "/nominationdate/start/{startdate}/end/{enddate}")
@@ -40,10 +40,10 @@ public class NominationDateController {
     }
 
     //to show if current date matches
-    @GetMapping("/nominationalert")
-    public List<PopUpDTO> alert()
+    @GetMapping("/nominationalert/{yourId}")
+    public List<PopUpDTO> alert(@PathVariable("yourId") String id)
     {
         LocalDateTime Today = LocalDateTime.now();
-        return nominationDateService.popUp(Today);
+        return nominationDateService.popUp(Today,id);
     }
 }

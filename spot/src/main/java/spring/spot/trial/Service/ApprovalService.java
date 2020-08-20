@@ -36,7 +36,7 @@ public class ApprovalService {
         return (List<Approval>) approvalRepository.findAll();
     }
 
-    public Approval getApprovalByIdAndHeadId(String headId){
+    public List<Approval> getApprovalByIdAndHeadId(String headId){
         return  approvalRepository.findByApprovedById(headId);
     }
 
@@ -45,14 +45,16 @@ public class ApprovalService {
         List<Approval> approvals = new ArrayList<>();
         List<Team> teams = teamRepository.findByManagerId(vpId);
         for (Team team : teams)
-        {
+        {  int i=0;
             List<String> members = team.getMembers();
             for (String memId : members)
             {
-               if (approvalRepository.findByApprovedById(memId) != null)
+               if (!approvalRepository.findByApprovedById(memId).isEmpty() && approvalRepository.findByApprovedById(memId).get(i++) != null )
                {
-                   Approval approval = approvalRepository.findByApprovedById(memId);
-                   approvals.add(approval);
+                   List<Approval> approvals1 = approvalRepository.findByApprovedById(memId);
+                   for (Approval approval: approvals1) {
+                       approvals.add(approval);
+                   }
                }
             }
         }
