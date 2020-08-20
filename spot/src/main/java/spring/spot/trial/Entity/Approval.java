@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Approval implements Serializable {
 
     @PrimaryKeyColumn(name = "approved_by_id",ordinal = 0,type = PrimaryKeyType.PARTITIONED)
-    public String approvedById; //goes to emp_awards tableS as awarded_by_id
+    public String approvedById; //goes to emp_awards tableS as awarded_by_id //nothing but director id
 
     @Column("nomination_id")
     public UUID nominationId;

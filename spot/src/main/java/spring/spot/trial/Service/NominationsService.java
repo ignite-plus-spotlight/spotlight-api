@@ -134,6 +134,7 @@ public class NominationsService {
           for(Team team : teams) {
               List<String> members = team.getMembers();
               for (String memberId : members) {
+                  if(nominationsRepository.findByManagerIdAndPollId(memberId,pollingDate.getPollId()) != null)
                   if (today.compareTo(pollingDate.getPollStartDate()) >= 0 && today.compareTo(pollingDate.getPollEndDate()) <= 0) {
                       NominationsApprovalDTO nominationsApprovalDTO = new NominationsApprovalDTO();
                       nominationsApprovalDTO.setStartDate(pollingDate.getPollStartDate());
@@ -168,7 +169,7 @@ public class NominationsService {
         approval.setManagerName(employeeRepository.findByEmpId(nominationsApprovalDTO.getHeadId()).get(0).getFirstName()+" "+employeeRepository.findByEmpId(nominationsApprovalDTO.getHeadId()).get(0).getLastName());
         approval.setNominationId(nominationsApprovalDTO.getNominationId());
         approval.setNominee_id(nominationsApprovalDTO.getNomineeId());
-        approval.setNomineeName(nominationsApprovalDTO.getNominee().firstName+" "+nominationsApprovalDTO.getNominee().firstName);
+        approval.setNomineeName(nominationsApprovalDTO.getNominee().getFirstName()+" "+nominationsApprovalDTO.getNominee().getLastName());
         approval.setProcessId(nominationsApprovalDTO.getPollId());
 
         return approvalRepository.save(approval);
