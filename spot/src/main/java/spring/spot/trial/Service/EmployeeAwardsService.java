@@ -8,6 +8,7 @@ import spring.spot.trial.Exception.InputValidationException;
 import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.*;
 import spring.spot.trial.dto.AwardsGivenByManagerDTO;
+import spring.spot.trial.dto.AwardsHistoryDTO;
 import spring.spot.trial.dto.EmpAwardWinnersUnderManagerDTO;
 import spring.spot.trial.util.VelToPdf;
 
@@ -141,4 +142,29 @@ public class EmployeeAwardsService {
         awardsGivenByManagerDTO.setEmpAwardWinnersUnderManagerDTOS(empAwardWinnersUnderManagerDTOS);
         return awardsGivenByManagerDTO;
     }
+
+    //dont forget to post into emp md
+    public List<AwardsHistoryDTO> awardsHistory (String givenById)
+    {
+        List<AwardsHistoryDTO> awardsHistoryDTOS = new ArrayList<>();
+        List<EmployeeAwardsMD> employeeAwards = employeeAwardsMRepository.findByAwardedById(givenById);
+        for (EmployeeAwardsMD employeeAwardsMD : employeeAwards)
+        {
+            AwardsHistoryDTO awardsHistoryDTO = new AwardsHistoryDTO();
+            awardsHistoryDTO.setAwardedById(employeeAwardsMD.getAwardedById());
+            awardsHistoryDTO.setAwardName(employeeAwardsMD.getAwardName());
+            awardsHistoryDTO.setDepartment(employeeAwardsMD.getDepartment());
+            awardsHistoryDTO.setDescription(employeeAwardsMD.getDescription());
+            awardsHistoryDTO.setEmpId(employeeAwardsMD.getEmpId());
+            awardsHistoryDTO.setEmployee(employeeRepository.findByEmpId(employeeAwardsMD.getEmpId()).get(0));
+            awardsHistoryDTO.setEmpPoints(employeeAwardsMD.getEmpPoints());
+            awardsHistoryDTO.setImgsrc(employeeAwardsMD.getImgsrc());
+            awardsHistoryDTO.setManagerName(employeeAwardsMD.getManagerName());
+            awardsHistoryDTO.setPeriodName(employeeAwardsMD.getPeriodName());
+            awardsHistoryDTO.setTimestamp(employeeAwardsMD.getTimestamp());
+        }
+
+        return  awardsHistoryDTOS;
+    }
+
 }

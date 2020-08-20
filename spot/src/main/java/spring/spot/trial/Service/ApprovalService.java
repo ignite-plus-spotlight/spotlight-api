@@ -2,10 +2,7 @@ package spring.spot.trial.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spring.spot.trial.Entity.Approval;
-import spring.spot.trial.Entity.Employee;
-import spring.spot.trial.Entity.EmployeeAwardsTM;
-import spring.spot.trial.Entity.Team;
+import spring.spot.trial.Entity.*;
 import spring.spot.trial.Repository.*;
 
 import java.time.LocalDateTime;
@@ -24,6 +21,8 @@ public class ApprovalService {
     EmployeeRepository employeeRepository;
     @Autowired
     EmployeeAwardsTMRepository employeeAwardsTMRepository;
+    @Autowired
+    EmployeeAwardsMRepository employeeAwardsMRepository;
 
     public ApprovalService(ApprovalRepository approvalRepository){
         this.approvalRepository = approvalRepository;
@@ -70,6 +69,20 @@ public class ApprovalService {
         empaward.setManagerName(employeeRepository.findByEmpId(vpId).get(0).getFirstName()+" "+employeeRepository.findByEmpId(vpId).get(0).getLastName());
         empaward.setPeriodName(pollRepository.findByPollId(approval.getProcessId()).getPeriod());
         empaward.setTimestamp(LocalDateTime.now());
+
+        EmployeeAwardsMD employeeAwardsMD = new EmployeeAwardsMD();
+        employeeAwardsMD.setAwardedById(empaward.getAwardedById());
+        employeeAwardsMD.setAwardName(empaward.getAwardName());
+        employeeAwardsMD.setDepartment(empaward.getDepartment());
+        employeeAwardsMD.setDescription(empaward.getDescription());
+        employeeAwardsMD.setEmpId(empaward.getEmpId());
+        employeeAwardsMD.setEmpPoints(empaward.getEmpPoints());
+        employeeAwardsMD.setImgsrc(empaward.getImgsrc());
+        employeeAwardsMD.setManagerName(empaward.getManagerName());
+        employeeAwardsMD.setPeriodName(empaward.getPeriodName());
+        employeeAwardsMD.setTimestamp(empaward.getTimestamp());
+        employeeAwardsMRepository.save(employeeAwardsMD);
+
         return employeeAwardsTMRepository.save(empaward);
     }
 
