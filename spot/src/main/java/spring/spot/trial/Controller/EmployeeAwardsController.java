@@ -6,6 +6,7 @@ import spring.spot.trial.Entity.EmployeeAwardsMD;
 import spring.spot.trial.Entity.EmployeeAwardsTM;
 import spring.spot.trial.Service.EmployeeAwardsService;
 import spring.spot.trial.dto.AwardsGivenByManagerDTO;
+import spring.spot.trial.dto.AwardsHistoryDTO;
 
 import java.util.List;
 
@@ -60,5 +61,11 @@ public class EmployeeAwardsController {
     @PutMapping(value = "employee/{id}/employeeawards")
     public EmployeeAwardsTM UpdateEmployeeAwardsById(@PathVariable("id") String id, @RequestBody EmployeeAwardsTM emp) {
         return employeeAwardsService.updateEmployeeAwardsById(id,emp);
+    }
+
+    @GetMapping(value = "/awardshistory/{yourId}")
+    public List<AwardsHistoryDTO> awardsHistory (@PathVariable("yourId") String id)
+    {
+        return employeeAwardsService.awardsHistory(id);
     }
 }

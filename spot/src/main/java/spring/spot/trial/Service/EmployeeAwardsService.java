@@ -143,7 +143,7 @@ public class EmployeeAwardsService {
         return awardsGivenByManagerDTO;
     }
 
-    //dont forget to post into emp md
+
     public List<AwardsHistoryDTO> awardsHistory (String givenById)
     {
         List<AwardsHistoryDTO> awardsHistoryDTOS = new ArrayList<>();
@@ -162,6 +162,7 @@ public class EmployeeAwardsService {
             awardsHistoryDTO.setManagerName(employeeAwardsMD.getManagerName());
             awardsHistoryDTO.setPeriodName(employeeAwardsMD.getPeriodName());
             awardsHistoryDTO.setTimestamp(employeeAwardsMD.getTimestamp());
+            awardsHistoryDTOS.add(awardsHistoryDTO);
         }
 
         return  awardsHistoryDTOS;
