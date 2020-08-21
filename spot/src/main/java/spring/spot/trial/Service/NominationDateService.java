@@ -81,7 +81,7 @@ NominationDateRepository nominationDateRepository;
                popUpDTO.setNominationEndDate(endDate);
                popUpDTO.setNominationStartDate(startDate);
                popUpDTO.setPollName(pollName);
-               if (nominationsRepository.findByManagerIdAndPollId(yourId,pollId) != null)
+               //if (nominationsRepository.findByManagerIdAndPollId(yourId,pollId) != null)
                popUpDTOS.add(popUpDTO);
            }
 

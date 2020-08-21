@@ -150,7 +150,7 @@ public class NominationsService {
                       nominationsApprovalDTO.setNomineeId(nominations.getEmployeeId());
                       nominationsApprovalDTO.setNominee(employeeRepository.findByEmpId(nominations.getEmployeeId()).get(0));
                       nominationsApprovalDTO.setHead(employeeRepository.findByEmpId(memberId).get(0));
-                      if (approvalRepository.findByApprovedByIdAndProcessIdAndNominationId(yourEmpId,nominationsApprovalDTO.getPollId(),nominationsApprovalDTO.getNominationId()) != null)
+                      //if (approvalRepository.findByApprovedByIdAndProcessIdAndNominationId(yourEmpId,nominationsApprovalDTO.getPollId(),nominationsApprovalDTO.getNominationId()) != null)
                       nominationsApprovalDTOS.add(nominationsApprovalDTO);
                   }
               }

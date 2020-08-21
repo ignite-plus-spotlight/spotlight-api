@@ -49,13 +49,12 @@ public class ApprovalService {
             List<String> members = team.getMembers();
             for (String memId : members)
             {
-               if (!approvalRepository.findByApprovedById(memId).isEmpty() && approvalRepository.findByApprovedById(memId).get(i++) != null )
-               {
+              /* if (!approvalRepository.findByApprovedById(memId).isEmpty() && approvalRepository.findByApprovedById(memId).get(i++) != null )*/
                    List<Approval> approvals1 = approvalRepository.findByApprovedById(memId);
-                   for (Approval approval: approvals1) {
+                   for (Approval approval: approvals1)
+                   {
                        approvals.add(approval);
                    }
-               }
             }
         }
         return approvals;
