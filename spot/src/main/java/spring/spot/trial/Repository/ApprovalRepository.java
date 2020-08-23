@@ -12,5 +12,6 @@ public interface ApprovalRepository extends CassandraRepository<Approval, String
     List<Approval> findByApprovedById(String headId);
     Approval findByApprovedByIdAndProcessIdAndNominationId(String headId, UUID processId, UUID nominationId);
     Approval save(Approval approval);
-}
 
+    List<Approval> findByApprovedByIdAndProcessId(String yourEmpId, UUID pId);
+}

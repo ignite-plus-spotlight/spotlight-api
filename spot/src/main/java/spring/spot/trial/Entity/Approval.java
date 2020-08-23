@@ -35,10 +35,10 @@ public class Approval implements Serializable {
     @Column("nominee_name")
     public String nomineeName;
 
-    @Column("manager_id")
+    @Column("nominated_by_id")
     public String managerId; //take head_id from nom approval dto
 
-    @Column("manager_name")
+    @Column("nominated_by_name")
     public String managerName;  //take head.first name+ last name from nominations approval dto
 
     @Column()
@@ -46,7 +46,6 @@ public class Approval implements Serializable {
 
     @Column("director_name")
     private String directorName; //your name
-
 
     @Column("process_end_date")
     private LocalDateTime endDate;

@@ -3,6 +3,7 @@ package spring.spot.trial.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.*;
+import spring.spot.trial.Exception.NotAcceptableException;
 import spring.spot.trial.Exception.NotFoundException;
 import spring.spot.trial.Repository.*;
 import spring.spot.trial.dto.NominationDTO;
@@ -43,6 +44,9 @@ public class NominationsService {
     @Autowired
     ApprovalRepository approvalRepository;
 
+    @Autowired
+    EmpRolesRepository empRolesRepository;
+
 
     public NominationsService(NominationsRepository nominationsRepository){
         this.nominationsRepository = nominationsRepository;
@@ -66,6 +70,9 @@ public class NominationsService {
 
         pollName = postIntoMultipleEntity.getPollName();
         description = postIntoMultipleEntity.getDescription();
+        if((postIntoMultipleEntity.getPollStart().compareTo(postIntoMultipleEntity.getPollEnd())==0) || (postIntoMultipleEntity.getPollStart().compareTo(postIntoMultipleEntity.getPollEnd())>0))
+            throw new NotAcceptableException("Give a valid dates");
+
         pollStart = postIntoMultipleEntity.getPollStart();
         pollEnd = postIntoMultipleEntity.getPollEnd();
         period = postIntoMultipleEntity.getPeriod();
@@ -93,9 +100,10 @@ public class NominationsService {
         return postIntoMultipleEntity;
     }
 
-    //manager nominates
+    // nominates
     public Nominations nominate(UUID pollId, String employeeId, String managerId, String description, String pollName)
     {
+
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         LocalDateTime createdDate = LocalDateTime.now();
 
@@ -120,8 +128,25 @@ public class NominationsService {
         nominationsHistory.setPeriod(pollRepository.findByPollId(pollId).getPeriod());
         nominationsHistoryRepository.save(nominationsHistory);
 
+       // String roleName = empRolesRepository.findByEmpId(managerId).get(0).getRoleName();
+/*        if (roleName.equalsIgnoreCase("director"))
+        {
+            Approval approval = new Approval();
+            approval.setApprovedById(managerId);
+            approval.setDescription(nominations.getDescription());
+            approval.setDirectorName(employeeRepository.findByEmpId(managerId).get(0).getFirstName()+" "+employeeRepository.findByEmpId(managerId).get(0).getLastName());
+            approval.setManagerId(managerId);
+            approval.setManagerName(employeeRepository.findByEmpId(managerId).get(0).getFirstName()+" "+employeeRepository.findByEmpId(managerId).get(0).getLastName());
+            approval.setNominationId(nominations.getNominationId());
+            approval.setNominee_id(nominations.getEmployeeId());
+            approval.setNomineeName(employeeRepository.findByEmpId(nominations.getEmployeeId()).get(0).getFirstName()+" "+employeeRepository.findByEmpId(nominations.getEmployeeId()).get(0).getLastName());
+            approval.setProcessId(nominations.getPollId());
+            approvalRepository.save(approval);
+        }*/
+
         return nominations;
     }
+
 
     public List<NominationsApprovalDTO> approvalAlert(String yourEmpId)
     {
@@ -142,15 +167,20 @@ public class NominationsService {
                       nominationsApprovalDTO.setProcessName(pollingDate.getPollName());
                       nominationsApprovalDTO.setPollId(pollingDate.getPollId());
                       Poll poll = pollRepository.findByPollId(pollingDate.getPollId());
-                      nominationsApprovalDTO.setDescription(poll.getDescription());
                       nominationsApprovalDTO.setPeriod(poll.getPeriod());
                       nominationsApprovalDTO.setHeadId(memberId);
                       Nominations nominations = nominationsRepository.findByManagerIdAndPollId(memberId,pollingDate.getPollId());
                       nominationsApprovalDTO.setNominationId(nominations.getNominationId());
+                      nominationsApprovalDTO.setDescription(nominations.getDescription());
                       nominationsApprovalDTO.setNomineeId(nominations.getEmployeeId());
                       nominationsApprovalDTO.setNominee(employeeRepository.findByEmpId(nominations.getEmployeeId()).get(0));
                       nominationsApprovalDTO.setHead(employeeRepository.findByEmpId(memberId).get(0));
-                      //if (approvalRepository.findByApprovedByIdAndProcessIdAndNominationId(yourEmpId,nominationsApprovalDTO.getPollId(),nominationsApprovalDTO.getNominationId()) != null)
+                      UUID pId = poll.getPollId();
+                      System.out.println(pId);
+                      UUID nId = nominations.getNominationId();
+                      System.out.println(approvalRepository.findByApprovedByIdAndProcessIdAndNominationId(yourEmpId,pId,nId));
+                      if (approvalRepository.findByApprovedByIdAndProcessId(yourEmpId,pId).isEmpty())
+                          throw new NotAcceptableException("Already approved, sorry");
                       nominationsApprovalDTOS.add(nominationsApprovalDTO);
                   }
               }
@@ -159,6 +189,7 @@ public class NominationsService {
     return nominationsApprovalDTOS;
     }
 
+    //post call after approval
     public Approval initialApprove(NominationsApprovalDTO nominationsApprovalDTO, String yourId)
     {
         Approval approval = new Approval();
@@ -172,8 +203,7 @@ public class NominationsService {
         approval.setNominee_id(nominationsApprovalDTO.getNomineeId());
         approval.setNomineeName(nominationsApprovalDTO.getNominee().getFirstName()+" "+nominationsApprovalDTO.getNominee().getLastName());
         approval.setProcessId(nominationsApprovalDTO.getPollId());
-
         return approvalRepository.save(approval);
     }
-
 }
+

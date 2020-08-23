@@ -23,7 +23,7 @@ public class Nominations implements Serializable {
     /*Once the approval table has this particular manager_id and poll_id, it shouldn't tell the director*/
 
     @PrimaryKeyColumn(name = "head_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
-    private String managerId;
+    private String managerId; //goes as approval id
 
     @PrimaryKeyColumn(name = "process_id",ordinal = 0,type = PrimaryKeyType.CLUSTERED)
     public UUID pollId;

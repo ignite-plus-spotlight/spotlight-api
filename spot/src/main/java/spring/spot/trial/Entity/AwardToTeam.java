@@ -17,13 +17,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Table("award_to_team")
 public class AwardToTeam implements Serializable {
-    @PrimaryKeyColumn(ordinal = 0,type= PrimaryKeyType.PARTITIONED)
-    private String department;
+    @PrimaryKeyColumn(name = "award_name", ordinal=0,type= PrimaryKeyType.PARTITIONED)
+    private String awardName;
     @PrimaryKeyColumn(name="period_name", ordinal=0,type= PrimaryKeyType.CLUSTERED)
     private String periodName;
-   @PrimaryKeyColumn(name="award_name", ordinal= 1,type= PrimaryKeyType.CLUSTERED)
-    @Column("award_name")
-    private String awardName;
     @Column()
     private String description;
     @Column()

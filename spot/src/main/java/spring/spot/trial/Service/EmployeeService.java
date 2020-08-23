@@ -48,7 +48,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeeById(String id) {
-        //InputValidationException.validateInputParameter(id);
+        InputValidationException.validateInputParameter(id);
         List<Employee> employees = employeeRepository.findByEmpId(id);
         if (employees.isEmpty())
             throw new NotFoundException("No employee found for id: "+id);

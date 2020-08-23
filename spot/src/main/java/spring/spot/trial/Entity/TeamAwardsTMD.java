@@ -16,10 +16,10 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table("team_awards_received_tmd")
+@Table("team_awards_received")
 public class TeamAwardsTMD implements Serializable {
 
-    @PrimaryKeyColumn(name = "employee_id",ordinal = 1,type= PrimaryKeyType.PARTITIONED)
+    @PrimaryKeyColumn(name = "given_by_id",ordinal = 1,type= PrimaryKeyType.PARTITIONED)
     public String employeeId;
 
     @PrimaryKeyColumn(name = "team_id",ordinal = 0, type = PrimaryKeyType.CLUSTERED)
@@ -45,6 +45,4 @@ public class TeamAwardsTMD implements Serializable {
 
     @Column
     private String imgsrc;
-
-
 }

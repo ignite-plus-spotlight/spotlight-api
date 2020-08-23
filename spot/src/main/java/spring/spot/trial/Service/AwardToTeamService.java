@@ -29,7 +29,7 @@ public class AwardToTeamService {
     }
 
     public List<AwardToTeam> getAwardsByDepartment(String dept) {
-        List<AwardToTeam> awardToTeam = awardToTeamRepository.findByDepartment(dept);
+        List<AwardToTeam> awardToTeam = awardToTeamRepository.findByAwardName(dept);
         if(awardToTeam.isEmpty())
             throw new NotFoundException("Award for department "+ dept +" not found");
         return awardToTeam;

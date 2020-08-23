@@ -12,4 +12,3 @@ public interface EmployeeRepository extends CassandraRepository<Employee, String
     Employee save(Employee employee);
     Employee findByEmpIdAndFirstName(String id, String firstName);
 }
-

@@ -9,5 +9,5 @@ import java.util.List;
 @EnableCassandraRepositories
 public interface AwardToTeamRepository extends CassandraRepository<AwardToTeam,String> {
     AwardToTeam save(AwardToTeam awardToTeam);
-    List<AwardToTeam> findByDepartment(String dept);
+    List<AwardToTeam> findByAwardName(String awardName);
 }
