@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <style type='text/css'>
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            color: black;
+            display: table;
+            font-family: Georgia, serif;
+            font-size: 24px;
+            text-align: center;
+            vertical-align: middle
+        }
+        .container {
+            border: 30px solid gold;
+            width: 750px;
+            height: 563px;
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .logo {
+            color: gold;
+        }
+
+        .marquee {
+            color: red;
+            font-size: 48px;
+            margin: 20px;
+        }
+        .assignment {
+            margin: 20px;
+        }
+        .person {
+            border-bottom: 2px solid black;
+            font-size: 32px;
+            font-style: italic;
+            margin: 20px auto;
+            width: 400px;
+        }
+        .reason {
+            margin: 20px;
+        }
+    </style>
+</HEAD>
+<BODY>
+<div class="container">
+    <div class="logo">
+        An Organization
+    </div>
+
+    <div class="marquee">
+        Certificate of Appreciation
+    </div>
+
+    <div class="assignment">
+        This certificate is presented to
+    </div>
+
+    <div class="person">
+        $name
+    </div>
+
+    <div class="reason">
+        $description
+    </div>
+</div>
+</BODY>
+</HTML>
