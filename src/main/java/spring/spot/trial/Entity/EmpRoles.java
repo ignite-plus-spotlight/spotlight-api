@@ -9,6 +9,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -23,6 +24,6 @@ public class EmpRoles implements Serializable {
     public String roleName;
 
     @Column
-    private java.util.Date timestamp;
+    private LocalDateTime timestamp;
 
 }

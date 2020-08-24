@@ -9,6 +9,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /*Give away an award to a team*/
 
@@ -29,7 +30,7 @@ public class AwardToTeam implements Serializable {
     @Column()
     private int points;
     @Column
-    private java.util.Date timestamp;
+    private LocalDateTime timestamp;
     @Column
     private String imgsrc;
 }

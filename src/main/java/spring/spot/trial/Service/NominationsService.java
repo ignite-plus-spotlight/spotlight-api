@@ -157,7 +157,7 @@ public class NominationsService {
               List<String> members = team.getMembers();
               for (String memberId : members) {
                   if(nominationsRepository.findByManagerIdAndPollId(memberId,pollingDate.getPollId()) != null)
-                  if (today.compareTo(pollingDate.getPollStartDate()) >= 0 && today.compareTo(pollingDate.getPollEndDate()) <= 0) {
+                    if (today.compareTo(pollingDate.getPollStartDate()) >= 0 && today.compareTo(pollingDate.getPollEndDate()) <= 0) {
                       NominationsApprovalDTO nominationsApprovalDTO = new NominationsApprovalDTO();
                       nominationsApprovalDTO.setStartDate(pollingDate.getPollStartDate());
                       nominationsApprovalDTO.setEndDate(pollingDate.getPollEndDate());
@@ -174,9 +174,8 @@ public class NominationsService {
                           nominationsApprovalDTO.setNominee(employeeRepository.findByEmpId(nominations.getEmployeeId()).get(0));
                           nominationsApprovalDTO.setHead(employeeRepository.findByEmpId(memberId).get(0));
                           UUID pId = poll.getPollId();
-                          if (approvalRepository.findByApprovedByIdAndProcessIdAndNomineeId(yourEmpId, pId, nominations.getEmployeeId()) != null)
-                              throw new NotAcceptableException("Already approved, sorry");
-                          nominationsApprovalDTOS.add(nominationsApprovalDTO);
+                          if (approvalRepository.findByApprovedByIdAndProcessIdAndNomineeId(yourEmpId, pId, nominations.getEmployeeId()) == null)
+                              nominationsApprovalDTOS.add(nominationsApprovalDTO);
                       }
                   }
               }

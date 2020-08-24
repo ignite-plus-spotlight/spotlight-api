@@ -29,11 +29,11 @@ public class EmployeeAwardsMD implements Serializable {
     @PrimaryKeyColumn(name = "period_name",ordinal = 1,type = PrimaryKeyType.CLUSTERED)
     public String periodName;
 
-    @Column
-    public String department;
-
     @PrimaryKeyColumn(name = "award_name", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
     public String awardName;
+
+    @Column
+    public String department;
 
     @Column("emp_points")
     private int empPoints;
