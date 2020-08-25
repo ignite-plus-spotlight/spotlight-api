@@ -18,6 +18,8 @@ public class CertGenerate {
         VelocityContext context = new VelocityContext();
         context.put("name",employee.getFirstName()+" "+employee.getLastName());
         context.put("description",employeeAwardsTM.getDescription());
+        context.put("award",employeeAwardsTM.getAwardName());
+
 
 
         Template t = ve.getTemplate("src/main/resources/certificate.vm");

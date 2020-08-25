@@ -40,6 +40,8 @@ public class EmployeeAwardsService {
     @Autowired
     TeamRepository teamRepository;
 
+
+
     public EmployeeAwardsService(EmployeeAwardsTMRepository employeeAwardsTMRepository) { this.employeeAwardsTMRepository = employeeAwardsTMRepository; }
 
     public EmployeeAwardsTM createEmployeeAwards(String empId, String manager_id, String award_name, String period_name, String department) throws Exception {
@@ -97,7 +99,7 @@ public class EmployeeAwardsService {
 
         CertGenerate certGenerate = new CertGenerate();
         String htmlData = certGenerate.certGenerate(employee, employeeAwardsTM);
-        VelToPdf.velocityToPdf(htmlData);
+       String filename= VelToPdf.velocityToPdf(htmlData);
 
         //Start our mail message
         MimeMessage msg = new MimeMessage(session);
@@ -114,7 +116,8 @@ public class EmployeeAwardsService {
 
             //Attachment body part.
             MimeBodyPart pdfAttachment = new MimeBodyPart();
-            pdfAttachment.attachFile("C:/Users/User/Downloads/Mail/Test.pdf");
+
+            pdfAttachment.attachFile(filename);
 
             //Attach body parts
             emailContent.addBodyPart(textBodyPart);

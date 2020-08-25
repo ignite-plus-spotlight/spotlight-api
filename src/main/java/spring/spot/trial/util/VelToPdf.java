@@ -13,20 +13,20 @@ import java.util.Date;
 
 public class VelToPdf {
 
-    public static void velocityToPdf( String html){
+    public static String velocityToPdf( String html) {
 
         PdfWriter pdfWriter = null;
         Document document = new Document();
+        String fileName = "Test" + new Date().getTime() + ".pdf";
         try {
 
             //Rectangle rect = new Rectangle(700,500);
-            Rectangle rect = new Rectangle(700,400);
+            Rectangle rect = new Rectangle(700, 400);
             document.setPageSize(rect);
 
 
-            OutputStream file = new FileOutputStream(new File("Test"+new Date().getTime()+".pdf"));
-
-
+            OutputStream file = new FileOutputStream(new File(fileName));
+//            System.out.println(file);
 
 
             pdfWriter = PdfWriter.getInstance(document, file);
@@ -40,6 +40,7 @@ public class VelToPdf {
 
 
             System.out.println("----------------------####PDF generated successfully");
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -47,7 +48,9 @@ public class VelToPdf {
             document.close();
             // close the writer
             pdfWriter.close();
+
         }
+        return fileName;
     }
 }
 

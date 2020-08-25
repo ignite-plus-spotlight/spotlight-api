@@ -65,6 +65,14 @@
         <u>$name</u>
     </div>
 
+     <div class="assignment">
+            For the Award
+        </div>
+
+      <div class="award">
+          <u>$award</u>
+       </div>
+
     <div class="description">
         $description
     </div>
