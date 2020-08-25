@@ -38,9 +38,8 @@ public class ApprovalService {
         return (List<Approval>) approvalRepository.findAll();
     }
 
-    public List<Approval> getApprovalByIdAndHeadId(String headId){
-        return  approvalRepository.findByApprovedById(headId);
-    }
+    public List<Approval> getApprovalByHeadId(String headId){
+        return  approvalRepository.findByApprovedById(headId); }
 
     public List<Approval> findByVPId(String vpId)
     {
@@ -51,13 +50,13 @@ public class ApprovalService {
             List<String> members = team.getMembers();
             for (String memId : members)
             {
-              /* if (!approvalRepository.findByApprovedById(memId).isEmpty() && approvalRepository.findByApprovedById(memId).get(i++) == null )*/
-                   List<Approval> approvals1 = approvalRepository.findByApprovedById(memId);
-                   for (Approval approval: approvals1)
-                   {
-                       if(employeeAwardsTMRepository.findByEmpIdAndPeriodNameAndAwardedByIdAndAwardName(approval.getNomineeId(),pollRepository.findByPollId(approval.getProcessId()).getPeriod(),memId,pollRepository.findByPollId(approval.getProcessId()).getPollName()) == null && rejectedNominationsRepository.findByRejectedByIdAndProcessIdAndNomineeId(vpId,pollRepository.findByPollId(approval.getProcessId()).getPollId(),approval.getNomineeId()) == null)
-                           approvals.add(approval);
-                   }
+                /* if (!approvalRepository.findByApprovedById(memId).isEmpty() && approvalRepository.findByApprovedById(memId).get(i++) == null )*/
+                List<Approval> approvals1 = approvalRepository.findByApprovedById(memId);
+                for (Approval approval: approvals1)
+                {
+                    if(employeeAwardsTMRepository.findByEmpIdAndPeriodNameAndAwardedByIdAndAwardName(approval.getNomineeId(),pollRepository.findByPollId(approval.getProcessId()).getPeriod(),memId,pollRepository.findByPollId(approval.getProcessId()).getPollName()) == null && rejectedNominationsRepository.findByRejectedByIdAndProcessIdAndNomineeId(vpId,pollRepository.findByPollId(approval.getProcessId()).getPollId(),approval.getNomineeId()) == null)
+                        approvals.add(approval);
+                }
             }
         }
         return approvals;

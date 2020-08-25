@@ -29,7 +29,7 @@ public class ApprovalController {
 
     @GetMapping("/approvalList/{headId}")
     public List<Approval> getApprovalByIdAndHeadId(@PathVariable("headId")String headId){
-        return approvalService.getApprovalByIdAndHeadId(headId);
+        return approvalService.getApprovalByHeadId(headId);
     }
 
     @GetMapping("/vpsApprovalList/{yourId}")

@@ -32,6 +32,11 @@ public class RejectedNominationsController {
         return rejectedNominationsService.findRejectedNominations();
     }
 
+    @GetMapping("/rejections/{yourId}")
+    public List<RejectedNominations> getById(@PathVariable("yourId") String id)
+    {
+        return rejectedNominationsService.findById(id);
+    }
 
     @PostMapping("/rejections/{yourId}")
     public RejectedNominations createRejection(@PathVariable("yourId")String rejectedById,@RequestBody NominationsApprovalDTO nominationsApprovalDTO){
