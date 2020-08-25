@@ -9,16 +9,17 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table("activity_feed")
 public class ActivityFeed implements Serializable {
-    @PrimaryKeyColumn(name="who", ordinal= 0,type= PrimaryKeyType.PARTITIONED)
-    private String who;
+    @PrimaryKeyColumn(name="awardee_id", ordinal= 0,type= PrimaryKeyType.PARTITIONED)
+    public String awardeeId;
     @PrimaryKeyColumn(ordinal = 0,type = PrimaryKeyType.CLUSTERED)
-    private java.util.Date timestamp;
+    private LocalDateTime timestamp;
     @Column("award_name")
     private String awardName;
     @Column
@@ -27,8 +28,4 @@ public class ActivityFeed implements Serializable {
     private String imgsrc;
     @Column
     private String description;
-    @Column("emp_id")
-    public String empId;
-    @Column("team_id")
-    public String teamId;
 }

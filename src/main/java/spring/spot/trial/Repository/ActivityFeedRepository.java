@@ -8,6 +8,7 @@ import java.util.List;
 
 @EnableCassandraRepositories
 public interface ActivityFeedRepository extends CassandraRepository<ActivityFeed, String> {
-    List<ActivityFeed> findByWho(String empOrTeam);
+    List<ActivityFeed> findByAwardeeId(String empOrTeam);
+    List<ActivityFeed> findAll();
 }
 

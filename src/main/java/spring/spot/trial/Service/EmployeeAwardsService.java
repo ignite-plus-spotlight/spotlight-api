@@ -40,6 +40,9 @@ public class EmployeeAwardsService {
     @Autowired
     TeamRepository teamRepository;
 
+    @Autowired
+    ActivityFeedRepository activityFeedRepository;
+
     public EmployeeAwardsService(EmployeeAwardsTMRepository employeeAwardsTMRepository) { this.employeeAwardsTMRepository = employeeAwardsTMRepository; }
 
     public EmployeeAwardsTM createEmployeeAwards(String empId, String manager_id, String award_name, String period_name, String department) throws Exception {
@@ -75,6 +78,16 @@ public class EmployeeAwardsService {
         emd.setPeriodName(etm.getPeriodName());
         emd.setTimestamp(now);
         employeeAwardsMRepository.save(emd);
+
+        ActivityFeed activityFeed = new ActivityFeed();
+        activityFeed.setAwardeeId(emd.getEmpId());
+        activityFeed.setAwardName(emd.getAwardName());
+        activityFeed.setDescription(emd.getDescription());
+        activityFeed.setImgsrc(emd.getImgsrc());
+        activityFeed.setPoints(emd.getEmpPoints());
+        activityFeed.setTimestamp(emd.getTimestamp());
+        activityFeedRepository.save(activityFeed);
+
 /*
         String htmlData = CertGenerate.certGenerate(employee, employeeAwardsTM);
         VelToPdf.velocityToPdf(htmlData);*/
