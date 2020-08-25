@@ -221,5 +221,21 @@ public class NominationsService {
     }
 
 
+    public RejectedNominations finalReject(Approval approval, String yourId)
+    {
+        RejectedNominations rejectedNominations = new RejectedNominations();
+        rejectedNominations.setRejectedById(yourId);
+        rejectedNominations.setDescription(approval.getDescription());
+        rejectedNominations.setDirectorName(employeeRepository.findByEmpId(yourId).get(0).getFirstName()+" "+employeeRepository.findByEmpId(yourId).get(0).getLastName());
+        rejectedNominations.setEndDate(approval.getEndDate());
+        rejectedNominations.setManagerId(approval.getManagerId());
+        rejectedNominations.setManagerName(employeeRepository.findByEmpId(approval.getManagerId()).get(0).getFirstName()+" "+employeeRepository.findByEmpId(approval.getManagerId()).get(0).getLastName());
+        rejectedNominations.setNominationId(approval.getNominationId());
+        rejectedNominations.setNomineeId(approval.getNomineeId());
+        rejectedNominations.setNomineeName(approval.getNomineeName());
+        rejectedNominations.setProcessId(approval.getProcessId());
+
+        return rejectedNominationsRepository.save(rejectedNominations);
+    }
 
 }

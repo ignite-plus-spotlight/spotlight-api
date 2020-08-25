@@ -23,6 +23,8 @@ public class ApprovalService {
     EmployeeAwardsTMRepository employeeAwardsTMRepository;
     @Autowired
     EmployeeAwardsMRepository employeeAwardsMRepository;
+    @Autowired
+    RejectedNominationsRepository rejectedNominationsRepository;
 
     public ApprovalService(ApprovalRepository approvalRepository){
         this.approvalRepository = approvalRepository;
@@ -53,7 +55,8 @@ public class ApprovalService {
                    List<Approval> approvals1 = approvalRepository.findByApprovedById(memId);
                    for (Approval approval: approvals1)
                    {
-                       approvals.add(approval);
+                       if(employeeAwardsTMRepository.findByEmpIdAndPeriodNameAndAwardedByIdAndAwardName(approval.getNomineeId(),pollRepository.findByPollId(approval.getProcessId()).getPeriod(),memId,pollRepository.findByPollId(approval.getProcessId()).getPollName()) == null && rejectedNominationsRepository.findByRejectedByIdAndProcessIdAndNomineeId(vpId,pollRepository.findByPollId(approval.getProcessId()).getPollId(),approval.getNomineeId()) == null)
+                           approvals.add(approval);
                    }
             }
         }

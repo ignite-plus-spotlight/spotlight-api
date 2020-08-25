@@ -3,6 +3,7 @@ package spring.spot.trial.Controller;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import spring.spot.trial.Entity.Approval;
 import spring.spot.trial.Entity.RejectedNominations;
 import spring.spot.trial.Service.NominationsService;
 import spring.spot.trial.Service.RejectedNominationsService;
@@ -35,5 +36,9 @@ public class RejectedNominationsController {
     @PostMapping("/rejections/{yourId}")
     public RejectedNominations createRejection(@PathVariable("yourId")String rejectedById,@RequestBody NominationsApprovalDTO nominationsApprovalDTO){
         return nominationsService.initialReject(nominationsApprovalDTO,rejectedById);
+    }
+    @PostMapping("/vprejections/{yourId}")
+    public RejectedNominations createRejection(@PathVariable("yourId")String rejectedById, @RequestBody Approval approval){
+        return nominationsService.finalReject(approval,rejectedById);
     }
 }
