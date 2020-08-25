@@ -53,6 +53,7 @@ public class ApprovalService {
                    List<Approval> approvals1 = approvalRepository.findByApprovedById(memId);
                    for (Approval approval: approvals1)
                    {
+                       if(employeeAwardsTMRepository.findByEmpIdAndPeriodNameAndAwardedByIdAndAwardName(approval.getNomineeId(),pollRepository.findByPollId(approval.getProcessId()).getPeriod(),memId,pollRepository.findByPollId(approval.getProcessId()).getPollName()) == null)
                        approvals.add(approval);
                    }
             }

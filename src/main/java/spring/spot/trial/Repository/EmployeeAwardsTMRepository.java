@@ -10,6 +10,7 @@ import java.util.List;
 public interface EmployeeAwardsTMRepository extends CassandraRepository<EmployeeAwardsTM, String> {
     List<EmployeeAwardsTM> findByEmpId(String id);
     List<EmployeeAwardsTM> findByEmpIdAndPeriodName(String id, String period);
+    EmployeeAwardsTM findByEmpIdAndPeriodNameAndAwardedByIdAndAwardName(String id,String periodName,String awardedById,String awardName);
     EmployeeAwardsTM save(EmployeeAwardsTM employeeAwardsTM);
 
 

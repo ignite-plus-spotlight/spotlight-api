@@ -21,6 +21,7 @@ import java.util.UUID;
 @RestController
 @CrossOrigin("*")
 public class NominationsController {
+
     @Autowired
     NominationsService nominationsService;
 

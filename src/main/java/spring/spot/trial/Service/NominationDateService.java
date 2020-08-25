@@ -68,7 +68,6 @@ NominationDateRepository nominationDateRepository;
             NominationDate n = new NominationDate();
            if(Today.compareTo(startDate)>=0 && Today.compareTo(endDate)<=0)
                  n = nominationDateRepository.findByNominationStartDateAndNominationEndDate(startDate,endDate);
-
            else
                n = null;
            if(n!=null)
@@ -81,7 +80,7 @@ NominationDateRepository nominationDateRepository;
                popUpDTO.setNominationEndDate(endDate);
                popUpDTO.setNominationStartDate(startDate);
                popUpDTO.setPollName(pollName);
-               //if (nominationsRepository.findByManagerIdAndPollId(yourId,pollId) != null)
+               if (nominationsRepository.findByManagerIdAndPollId(yourId,pollId) == null)
                popUpDTOS.add(popUpDTO);
            }
 

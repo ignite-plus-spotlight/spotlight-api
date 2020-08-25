@@ -47,6 +47,9 @@ public class NominationsService {
     @Autowired
     EmpRolesRepository empRolesRepository;
 
+    @Autowired
+    RejectedNominationsRepository rejectedNominationsRepository;
+
 
     public NominationsService(NominationsRepository nominationsRepository){
         this.nominationsRepository = nominationsRepository;
@@ -174,7 +177,7 @@ public class NominationsService {
                           nominationsApprovalDTO.setNominee(employeeRepository.findByEmpId(nominations.getEmployeeId()).get(0));
                           nominationsApprovalDTO.setHead(employeeRepository.findByEmpId(memberId).get(0));
                           UUID pId = poll.getPollId();
-                          if (approvalRepository.findByApprovedByIdAndProcessIdAndNomineeId(yourEmpId, pId, nominations.getEmployeeId()) == null)
+                          if (approvalRepository.findByApprovedByIdAndProcessIdAndNomineeId(yourEmpId, pId, nominations.getEmployeeId()) == null || rejectedNominationsRepository.findByRejectedByIdAndProcessIdAndNomineeId(yourEmpId,pId,nominations.getEmployeeId()) == null)
                               nominationsApprovalDTOS.add(nominationsApprovalDTO);
                       }
                   }
@@ -200,5 +203,41 @@ public class NominationsService {
 
         return approvalRepository.save(approval);
     }
+
+    public RejectedNominations initialReject(NominationsApprovalDTO nominationsApprovalDTO, String yourId)
+    {
+        RejectedNominations rejectedNominations = new RejectedNominations();
+        rejectedNominations.setRejectedById(yourId);
+        rejectedNominations.setDescription(nominationsApprovalDTO.getDescription());
+        rejectedNominations.setDirectorName(employeeRepository.findByEmpId(yourId).get(0).getFirstName()+" "+employeeRepository.findByEmpId(yourId).get(0).getLastName());
+        rejectedNominations.setEndDate(nominationsApprovalDTO.getEndDate());
+        rejectedNominations.setManagerId(nominationsApprovalDTO.getHeadId());
+        rejectedNominations.setManagerName(employeeRepository.findByEmpId(nominationsApprovalDTO.getHeadId()).get(0).getFirstName()+" "+employeeRepository.findByEmpId(nominationsApprovalDTO.getHeadId()).get(0).getLastName());
+        rejectedNominations.setNominationId(nominationsApprovalDTO.getNominationId());
+        rejectedNominations.setNomineeId(nominationsApprovalDTO.getNomineeId());
+        rejectedNominations.setNomineeName(nominationsApprovalDTO.getNominee().getFirstName()+" "+nominationsApprovalDTO.getNominee().getLastName());
+        rejectedNominations.setProcessId(nominationsApprovalDTO.getPollId());
+
+        return rejectedNominationsRepository.save(rejectedNominations);
+    }
+
+
+    public RejectedNominations finalReject(Approval approval, String yourId)
+    {
+        RejectedNominations rejectedNominations = new RejectedNominations();
+        rejectedNominations.setRejectedById(yourId);
+        rejectedNominations.setDescription(approval.getDescription());
+        rejectedNominations.setDirectorName(employeeRepository.findByEmpId(yourId).get(0).getFirstName()+" "+employeeRepository.findByEmpId(yourId).get(0).getLastName());
+        rejectedNominations.setEndDate(approval.getEndDate());
+        rejectedNominations.setManagerId(approval.getManagerId());
+        rejectedNominations.setManagerName(employeeRepository.findByEmpId(approval.getManagerId()).get(0).getFirstName()+" "+employeeRepository.findByEmpId(approval.getManagerId()).get(0).getLastName());
+        rejectedNominations.setNominationId(approval.getNominationId());
+        rejectedNominations.setNomineeId(approval.getNomineeId());
+        rejectedNominations.setNomineeName(approval.getNomineeName());
+        rejectedNominations.setProcessId(approval.getProcessId());
+
+        return rejectedNominationsRepository.save(rejectedNominations);
+    }
+
 
 }
