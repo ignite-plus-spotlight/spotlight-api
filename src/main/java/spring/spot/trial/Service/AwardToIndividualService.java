@@ -11,11 +11,10 @@ import java.util.List;
 @Service
 public class AwardToIndividualService {
 
-//    @Autowired
-
+    @Autowired
     private AwardToIndividualRepository awardToIndividualRepository;
 
-    @Autowired
+//    @Autowired
     public AwardToIndividualService(AwardToIndividualRepository awardToIndividualRepository) {
         this.awardToIndividualRepository = awardToIndividualRepository;
     }
