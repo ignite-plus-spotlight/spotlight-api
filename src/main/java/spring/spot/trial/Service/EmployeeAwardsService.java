@@ -87,6 +87,7 @@ public class EmployeeAwardsService {
 
         UUID uuid= UUID.randomUUID();
         ActivityFeed activityFeed = new ActivityFeed();
+
         activityFeed.setAwardeeId(emd.getEmpId());
         activityFeed.setAwardName(emd.getAwardName());
         activityFeed.setDescription(emd.getDescription());
@@ -96,7 +97,8 @@ public class EmployeeAwardsService {
         activityFeed.setUuid(uuid);
 
         activityFeed.setAwardeeName(employeeRepository.findByEmpId(emd.getEmpId()).get(0).getFirstName()+" "+employeeRepository.findByEmpId(emd.getEmpId()).get(0).getLastName());
-        activityFeedRepository.save(activityFeed);
+            activityFeedRepository.save(activityFeed);
+
 
 /*
         String htmlData = CertGenerate.certGenerate(employee, employeeAwardsTM);
@@ -155,6 +157,7 @@ public class EmployeeAwardsService {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
 
         return employeeAwardsTM;
     }

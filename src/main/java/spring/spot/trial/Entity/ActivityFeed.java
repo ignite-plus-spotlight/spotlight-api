@@ -18,7 +18,6 @@ import java.util.UUID;
 @Table("activity_feed")
 public class ActivityFeed implements Serializable {
   @PrimaryKeyColumn(name="awardee_id", ordinal= 0,type= PrimaryKeyType.PARTITIONED)
-
     public String awardeeId;
   @PrimaryKeyColumn(ordinal = 1,type = PrimaryKeyType.CLUSTERED)
   private UUID uuid;

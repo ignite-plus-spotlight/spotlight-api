@@ -24,6 +24,6 @@ public class ActivityFeedController {
     {
         return activityService.getAll();
     }
-    @PostMapping("likes")
-    public ActivityFeed likes(@RequestBody ActivityFeed activityFeed){ return activityService.likes(activityFeed);}
+    @PostMapping("likes/{yourId}")
+    public ActivityFeed likes(@PathVariable("yourId") String id,@RequestBody ActivityFeed activityFeed){ return activityService.likes(activityFeed,id);}
 }
