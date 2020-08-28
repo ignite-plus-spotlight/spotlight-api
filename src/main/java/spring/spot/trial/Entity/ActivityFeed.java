@@ -10,15 +10,19 @@ import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table("activity_feed")
 public class ActivityFeed implements Serializable {
-    @PrimaryKeyColumn(name="awardee_id", ordinal= 0,type= PrimaryKeyType.PARTITIONED)
+  @PrimaryKeyColumn(name="awardee_id", ordinal= 0,type= PrimaryKeyType.PARTITIONED)
+
     public String awardeeId;
-    @PrimaryKeyColumn(ordinal = 0,type = PrimaryKeyType.CLUSTERED)
+  @PrimaryKeyColumn(ordinal = 1,type = PrimaryKeyType.CLUSTERED)
+  private UUID uuid;
+  @Column("award_id")
     private LocalDateTime timestamp;
     @Column("awardee_name")
     private String awardeeName;

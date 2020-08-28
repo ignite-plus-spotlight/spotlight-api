@@ -220,7 +220,6 @@ public class NominationsService {
         return rejectedNominationsRepository.save(rejectedNominations);
     }
 
-
     public RejectedNominations finalReject(Approval approval, String yourId)
     {
         RejectedNominations rejectedNominations = new RejectedNominations();

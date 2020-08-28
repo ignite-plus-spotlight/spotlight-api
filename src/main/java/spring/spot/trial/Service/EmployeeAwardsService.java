@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 
 @Service
 public class EmployeeAwardsService {
@@ -49,6 +50,8 @@ public class EmployeeAwardsService {
 
     public EmployeeAwardsTM createEmployeeAwards(String empId, String manager_id, String award_name, String period_name, String department) throws Exception {
         EmployeeAwardsTM emp = new EmployeeAwardsTM();
+
+
         AwardToIndividual awardToIndividual = awardToIndividualRepository.findByAwardName(award_name);
         Employee employee1 = employeeRepository.findByEmpId(manager_id).get(0);
         LocalDateTime now = LocalDateTime.now();
@@ -81,6 +84,8 @@ public class EmployeeAwardsService {
         emd.setTimestamp(now);
         employeeAwardsMRepository.save(emd);
 
+
+        UUID uuid= UUID.randomUUID();
         ActivityFeed activityFeed = new ActivityFeed();
         activityFeed.setAwardeeId(emd.getEmpId());
         activityFeed.setAwardName(emd.getAwardName());
@@ -88,6 +93,8 @@ public class EmployeeAwardsService {
         activityFeed.setImgsrc(emd.getImgsrc());
         activityFeed.setPoints(emd.getEmpPoints());
         activityFeed.setTimestamp(emd.getTimestamp());
+        activityFeed.setUuid(uuid);
+
         activityFeed.setAwardeeName(employeeRepository.findByEmpId(emd.getEmpId()).get(0).getFirstName()+" "+employeeRepository.findByEmpId(emd.getEmpId()).get(0).getLastName());
         activityFeedRepository.save(activityFeed);
 
