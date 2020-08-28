@@ -25,6 +25,8 @@ public class ApprovalService {
     EmployeeAwardsMRepository employeeAwardsMRepository;
     @Autowired
     RejectedNominationsRepository rejectedNominationsRepository;
+    @Autowired
+    ActivityFeedRepository activityFeedRepository;
 
     public ApprovalService(ApprovalRepository approvalRepository){
         this.approvalRepository = approvalRepository;
@@ -72,6 +74,7 @@ public class ApprovalService {
         empaward.setManagerName(employeeRepository.findByEmpId(vpId).get(0).getFirstName()+" "+employeeRepository.findByEmpId(vpId).get(0).getLastName());
         empaward.setPeriodName(pollRepository.findByPollId(approval.getProcessId()).getPeriod());
         empaward.setTimestamp(LocalDateTime.now());
+        empaward.setEmpPoints(500);
 
         EmployeeAwardsMD employeeAwardsMD = new EmployeeAwardsMD();
         employeeAwardsMD.setAwardedById(empaward.getAwardedById());
@@ -85,6 +88,18 @@ public class ApprovalService {
         employeeAwardsMD.setPeriodName(empaward.getPeriodName());
         employeeAwardsMD.setTimestamp(empaward.getTimestamp());
         employeeAwardsMRepository.save(employeeAwardsMD);
+
+        ActivityFeed activityFeed = new ActivityFeed();
+        activityFeed.setUuid(approval.getProcessId());
+        activityFeed.setTimestamp(employeeAwardsMD.getTimestamp());
+        activityFeed.setPoints(employeeAwardsMD.getEmpPoints());
+        activityFeed.setLikes(0);
+        activityFeed.setImgsrc(employeeAwardsMD.getImgsrc());
+        activityFeed.setDescription(employeeAwardsMD.getDescription());
+        activityFeed.setAwardName(employeeAwardsMD.getAwardName());
+        activityFeed.setAwardeeName(employeeRepository.findByEmpId(employeeAwardsMD.getEmpId()).get(0).getFirstName()+" "+employeeRepository.findByEmpId(employeeAwardsMD.getEmpId()).get(0).getLastName());
+        activityFeed.setAwardeeId(employeeAwardsMD.getEmpId());
+        activityFeedRepository.save(activityFeed);
 
         return employeeAwardsTMRepository.save(empaward);
     }
