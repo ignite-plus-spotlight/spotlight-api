@@ -49,7 +49,8 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee")
-    public Employee createEmployee(@RequestBody Employee emp) {
+    public Employee createEmployee(@RequestBody Employee emp)
+    {
         return employeeService.createEmployee(emp);
     }
 
@@ -65,6 +66,7 @@ public class EmployeeController {
         return employeeService.getManagerDetails(id);
     }
 
+    
     @GetMapping("levels/{headId}")
     public List<HierarchyDTO> levels(@PathVariable("headId") String headId)
     {
