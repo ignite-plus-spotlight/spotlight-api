@@ -23,6 +23,7 @@ public class ApprovalServiceTest {
     EmployeeAwardsTMRepository employeeAwardsTMRepository=mock(EmployeeAwardsTMRepository.class);
     EmployeeAwardsMRepository employeeAwardsMRepository=mock(EmployeeAwardsMRepository.class);
     RejectedNominationsRepository rejectedNominationsRepository=mock(RejectedNominationsRepository.class);
+    ActivityFeedRepository activityFeedRepository=mock(ActivityFeedRepository.class);
 
     @InjectMocks
     ApprovalService approvalService;
