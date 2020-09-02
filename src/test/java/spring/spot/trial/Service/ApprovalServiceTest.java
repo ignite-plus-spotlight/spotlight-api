@@ -68,20 +68,18 @@ public class ApprovalServiceTest {
 
     @Test
     public void   getApprovalByHeadId(){
-//        List<Approval> approvals=new ArrayList<>();
-//        Approval approval1=new Approval();
-//        approval1.setApprovedById("123");
-//        approval1.setDescription("Meets the requirement");
-//        approval1.setDirectorName("Rithika");
-//        approval1.setManagerName("Anusha");
-//
-//        Approval approval2=new Approval();
-//        approval2.setApprovedById("456");
-//        approval2.setDescription("Meets the requirement");
-//        approval2.setDirectorName("Deepika");
-//        approval2.setManagerName("Walusha");
-//        approvals.add(approval1);
-//        approvals.add(approval2);
+        List<Approval> approvals=new ArrayList<>();
+        Approval approval1=new Approval();
+        approval1.setApprovedById("123");
+        approval1.setDescription("Meets the requirement");
+        approval1.setDirectorName("Rithika");
+        approval1.setManagerName("Anusha");
+
+        approvals.add(approval1);
+
+        when(approvalRepository.findByApprovedById(any())).thenReturn(approvals);
+        List<Approval> approvalList = approvalService.getApprovalByHeadId(approval1.getApprovedById());
+        assertEquals("Anusha",approvalList.get(0).getManagerName());
 
     }
 }

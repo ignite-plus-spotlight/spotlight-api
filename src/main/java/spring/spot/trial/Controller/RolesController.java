@@ -34,15 +34,5 @@ public class RolesController {
     }
 
 
-    @PutMapping(value = "/employee/{name}/roles")
-    public Roles UpdateRolesByName(@PathVariable("name") String name, @RequestBody Roles roles) {
-        return rolesService.updateRolesByName(name,roles);
-    }
 
-
-    @DeleteMapping(value = "/employee/{name}/roles")
-    public String deleteRolesByName(@PathVariable("id") String name) {
-        rolesService.deleteRolesByName(name);
-        return "Roles with name " + name + " has been deleted!";
-    }
 }

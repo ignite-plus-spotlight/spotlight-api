@@ -41,15 +41,5 @@ public class RolesService {
 
 
 
-    public Roles updateRolesByName(String name, Roles roles) {
-        Roles role = rolesRepository.findByRoleName(name);
-        if(role == null)
-            throw new NotFoundException("No role with name "+name+" found!");
-        return rolesRepository.save(roles);
-    }
 
-
-    public void deleteRolesByName(String name) {
-        rolesRepository.deleteById(name);
-    }
 }
