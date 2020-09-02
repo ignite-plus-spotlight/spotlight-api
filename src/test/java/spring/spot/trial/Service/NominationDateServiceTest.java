@@ -63,4 +63,18 @@ public class NominationDateServiceTest {
         List<NominationDate> nominationDates = nominationDateService.getAllNominations();
         assertNotNull(nominationDates);
     }
+
+    @Test
+    public void getNominationsByDate(){
+
+        NominationDate nominationDate = new NominationDate();
+        nominationDate.setPollId(UUID.randomUUID());
+        nominationDate.setNominationStartDate(LocalDateTime.now());
+        nominationDate.setNominationEndDate(LocalDateTime.of(2020,12,28,6,05,04));
+
+        when(nominationDateRepository.findByNominationStartDateAndNominationEndDate(any(),any())).thenReturn(nominationDate);
+        NominationDate response = nominationDateService.getNominationByDates(nominationDate.getNominationStartDate(),nominationDate.getNominationEndDate());
+        assertNotNull(response);
+
+    }
 }

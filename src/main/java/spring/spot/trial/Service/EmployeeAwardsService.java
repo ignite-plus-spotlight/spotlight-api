@@ -125,13 +125,13 @@ public class EmployeeAwardsService {
         try {
             msg.setFrom(new InternetAddress(fromEmail));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-            msg.setSubject("Subject Line");
+            msg.setSubject("Congratulations!");
 
             Multipart emailContent = new MimeMultipart();
 
             //Text body part
             MimeBodyPart textBodyPart = new MimeBodyPart();
-            textBodyPart.setText("My multipart text");
+            textBodyPart.setText("Target is pleased to acknowledge your contribution towards the company\n");
 
             //Attachment body part.
             MimeBodyPart pdfAttachment = new MimeBodyPart();

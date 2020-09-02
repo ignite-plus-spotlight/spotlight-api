@@ -38,14 +38,6 @@ public class TeamService {
     }
 
 
-    public Team updateTeamByManagerId(String id, Team team) {
-        return teamRepository.save(team);
-    }
-
-    public void deleteTeamById(String id) {
-        teamRepository.deleteById(id);
-    }
-
     public Team updateIntoList(String empId, String managerId, int teamId){
 
         List<Employee> employees = employeeRepository.findByEmpId(empId);

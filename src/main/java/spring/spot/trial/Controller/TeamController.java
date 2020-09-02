@@ -40,10 +40,7 @@ public class TeamController {
     }
 
 
-    @PutMapping(value = "/team/{id}")
-    public Team UpdateTeamByManagerId(@PathVariable("id") String id, @RequestBody Team team) {
-        return teamService.updateTeamByManagerId(id,team);
-    }
+
 
     //adding a member to the team
     @PostMapping(value = "/team/{empId}/{managerId}/{teamId}")
@@ -53,10 +50,5 @@ public class TeamController {
     }
 
 
-    @DeleteMapping(value = "/team/{id}")
-    public String deleteTeamById(@PathVariable("id") String id) {
-        teamService.deleteTeamById(id);
-        return "Team with id " + id + " has been deleted!";
-    }
 }
 
