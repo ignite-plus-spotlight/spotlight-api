@@ -29,7 +29,7 @@ public class EmployeeController {
     }
 
 
-    //used in dropdown during add members
+    //used in drop down during add members
     @GetMapping("/employee")
     public List<Employee> getAllEmployee() {
         List<Employee> employees = employeeService.getAllEmployee();

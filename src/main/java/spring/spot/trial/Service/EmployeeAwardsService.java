@@ -45,8 +45,6 @@ public class EmployeeAwardsService {
     ActivityFeedRepository activityFeedRepository;
 
 
-
-
     //used in "reward" tab to award an individual
     public EmployeeAwardsService(EmployeeAwardsTMRepository employeeAwardsTMRepository) { this.employeeAwardsTMRepository = employeeAwardsTMRepository; }
 
@@ -248,5 +246,4 @@ public class EmployeeAwardsService {
 
         return  awardsHistoryDTOS;
     }
-
 }

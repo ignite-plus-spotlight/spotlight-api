@@ -14,6 +14,7 @@ import java.util.UUID;
 @RequestMapping
 @ResponseBody
 public class ActivityFeedController {
+
     @Autowired
     ActivityService activityService;
 
@@ -29,6 +30,9 @@ public class ActivityFeedController {
         return activityService.getAll();
     }
 
+    //likes
     @PostMapping("likes/{yourId}")
-    public ActivityFeed likes(@PathVariable("yourId") String id,@RequestBody ActivityFeed activityFeed){ return activityService.likes(activityFeed,id);}
+    public ActivityFeed likes(@PathVariable("yourId") String id,@RequestBody ActivityFeed activityFeed){
+        return activityService.likes(activityFeed,id);
+    }
 }

@@ -39,8 +39,11 @@ public class ActivityService {
         return activityFeedRepository.save(activityFeed);
 
     }
+
+    //to get all awards won
     public List<ActivityFeed> getAll()
     {
+
         return activityFeedRepository.findAll();
     }
 
