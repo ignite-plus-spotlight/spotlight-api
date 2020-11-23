@@ -46,5 +46,4 @@ public class TeamAwardsTMD implements Serializable {
     @Column
     private String imgsrc;
 
-
 }

@@ -7,7 +7,7 @@ import spring.spot.trial.Service.TeamAwardsTMDService;
 import spring.spot.trial.dto.ManagerDTO;
 
 import java.util.List;
-
+import java.util.Date;
 /*Received team awards that are displayed in the team member dashboard*/
 
 @RestController
@@ -22,9 +22,10 @@ public class TeamAwardsTMDController {
     public TeamAwardsTMDController(TeamAwardsTMDService teamAwardsTMDService) {
         this.teamAwardsTMDService = teamAwardsTMDService;
     }
+
     @GetMapping("/teammember/teamawardstmd")
     public List<TeamAwardsTMD> getAllTeamAwards() {
-        return (List<TeamAwardsTMD>) teamAwardsTMDService.getAllTeamAwards();
+        return teamAwardsTMDService.getAllTeamAwards();
     }
 
     @GetMapping(value = "/teammember/{id}/teamawardstmd")
@@ -33,8 +34,19 @@ public class TeamAwardsTMDController {
     }
 
 
-    @PostMapping("/teammember/teamawardstmd")
-    public TeamAwardsTMD createTeamAwards(@RequestBody TeamAwardsTMD team) {
+    @PostMapping("/teammember/{teamId}/{managerId}/{periodName}/{awardName}/{teamPoints}/{teamName}/{description}/{imgsrc}/teamawardstmd")
+    public TeamAwardsTMD createTeamAwards(@PathVariable("managerId") String managerId, @PathVariable("teamId") int teamId, @PathVariable("awardName") String awardName, @PathVariable("teamPoints") int teamPoints, @PathVariable("teamName") String teamName, @PathVariable("description") String description, @PathVariable("imgsrc") String imgsrc,@PathVariable("periodName") String periodName) {
+        Date d = new Date();
+        TeamAwardsTMD team = new TeamAwardsTMD();
+        team.setAwardName(awardName);
+        team.setDescription(description);
+        team.setImgsrc(imgsrc);
+        team.setManagerId(managerId);
+        team.setPeriodName(periodName);
+        team.setTeamId(teamId);
+        team.setTeamName(teamName);
+        team.setTeamPoints(teamPoints);
+        team.setTimestamp(d);
         return teamAwardsTMDService.createTeamAwards(team);
     }
 
