@@ -22,8 +22,8 @@ public class TeamAwardsTMD implements Serializable {
     @PrimaryKeyColumn(name = "team_id",ordinal = 1,type= PrimaryKeyType.PARTITIONED)
     public int teamId;
 
-    @PrimaryKeyColumn(name = "employee_id",ordinal = 0, type = PrimaryKeyType.CLUSTERED)
-    public String managerId;
+    @PrimaryKeyColumn(name = "awarded_by_id",ordinal = 0, type = PrimaryKeyType.CLUSTERED)
+    public String awardedById;
 
     @Column("period_name")
     public  String periodName;

@@ -3,9 +3,11 @@ package spring.spot.trial.Service;
 import org.apache.commons.collections.list.TransformedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import spring.spot.trial.Entity.AwardToTeam;
 import spring.spot.trial.Entity.Employee;
 import spring.spot.trial.Entity.Team;
 import spring.spot.trial.Entity.TeamAwardsTMD;
+import spring.spot.trial.Repository.AwardToTeamRepository;
 import spring.spot.trial.Repository.EmployeeRepository;
 import spring.spot.trial.Repository.TeamAwardsTMDRepository;
 import spring.spot.trial.Repository.TeamRepository;
@@ -13,6 +15,7 @@ import spring.spot.trial.dto.ManagerDTO;
 import spring.spot.trial.dto.TeamDTO;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,11 +29,31 @@ public class TeamAwardsTMDService {
     @Autowired
     TeamRepository teamRepository;
 
+    @Autowired
+    AwardToTeamRepository awardToTeamRepository;
+
     public TeamAwardsTMDService(TeamAwardsTMDRepository teamAwardsTMDRepository) {
         this.teamAwardsTMDRepository = teamAwardsTMDRepository;
     }
 
-    public TeamAwardsTMD createTeamAwards(TeamAwardsTMD team) {
+    public TeamAwardsTMD createTeamAwards(String awardName, String awardedById, String periodName, int teamId, String teamName) {
+        Date d = new Date();
+        TeamAwardsTMD team = new TeamAwardsTMD();
+        AwardToTeam awardToTeam = awardToTeamRepository.findByAwardName(awardName);
+
+        String description = awardToTeam.getDescription();
+        String imgsrc = awardToTeam.getImgsrc();
+        int teamPoints = awardToTeam.getPoints();
+
+        team.setAwardName(awardName);
+        team.setDescription(description);
+        team.setImgsrc(imgsrc);
+        team.setAwardedById(awardedById);
+        team.setPeriodName(periodName);
+        team.setTeamId(teamId);
+        team.setTeamName(teamName);
+        team.setTeamPoints(teamPoints);
+        team.setTimestamp(d);
         return teamAwardsTMDRepository.save(team);
     }
 
