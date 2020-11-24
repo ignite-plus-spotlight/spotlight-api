@@ -44,11 +44,18 @@ public class TeamAwardsTMDController {
         return teamAwardsTMDService.updateTeamAwardsById(id, teamAwardsTMD);
     }
 
-    //for team awards to display one level below
+    //for team awards to display one level below (director's id)
     @GetMapping(value = "/display/{yourid}")
     public ManagerDTO display(@PathVariable("yourid") String id)
     {
         return teamAwardsTMDService.display(id);
+    }
+
+    //for all members
+    @GetMapping(value = "/displayteamawardswon/{yourId}")
+    public List<TeamAwardsTMD> displayTeamAwards(@PathVariable("yourId") String empId)
+    {
+        return teamAwardsTMDService.displayTeamAwards(empId);
     }
 
 }
