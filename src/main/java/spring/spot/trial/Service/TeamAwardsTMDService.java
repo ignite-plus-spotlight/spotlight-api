@@ -80,7 +80,7 @@ public class TeamAwardsTMDService {
         return teamAwardsTMDRepository.save(teamAwardsTMD);
     }
 
-    public ManagerDTO display(String id)
+    /*public ManagerDTO display(String id)
     {
         List<Employee> employee = employeeRepository.findByEmpId(id);
         List<Team> team = teamRepository.findByManagerId(id);
@@ -102,9 +102,54 @@ public class TeamAwardsTMDService {
             teamDTO.setTeamMembers(reportee);
            teamDTOS.add(teamDTO);
         }
-       managerDTO.setEmployee(employeeRepository.findByEmpId(id).get(0));
+        managerDTO.setEmployee(employeeRepository.findByEmpId(id).get(0));
         managerDTO.setTeams(teamDTOS);
         return managerDTO;
+    }*/
+
+    public ManagerDTO display(String id)
+    {
+        List<Employee> employee = employeeRepository.findByEmpId(id);
+        List<Team> team = teamRepository.findByManagerId(id);
+        List<String> teamMembers =  team.get(0).getMembers();
+        ManagerDTO managerDTO = new ManagerDTO();
+        List<TeamDTO> teamDTOS = new ArrayList<>();
+        for(String memberid : teamMembers) {
+            TeamDTO teamDTO = new TeamDTO();
+            List<Team> teams = teamRepository.findByManagerId(memberid);
+            if (!teamRepository.findByManagerId(memberid).isEmpty()) {
+                teamDTO.setTeamId(teams.get(0).getTeamId());
+                teamDTO.setTeamName(teams.get(0).getTeamName());
+                teamDTO.setHeadId((employeeRepository.findByEmpId(teams.get(0).getManagerId())).get(0).getEmpId());
+                teamDTO.setHeadName((employeeRepository.findByEmpId(teams.get(0).getManagerId())).get(0).getFirstName());
+                List<String> memberids = teams.get(0).getMembers();
+                List<Employee> reportee = new ArrayList<>();
+                for (String empId : memberids) {
+                    reportee.add(employeeRepository.findByEmpId(empId).get(0));
+                }
+                teamDTO.setTeamMembers(reportee);
+                teamDTOS.add(teamDTO);
+            }
+            managerDTO.setEmployee(employeeRepository.findByEmpId(id).get(0));
+            managerDTO.setTeams(teamDTOS);
+        }
+        return managerDTO;
+    }
+
+    public List<TeamAwardsTMD> displayTeamAwards(String empId)
+    {
+       List<IndividualTeamAwards> i = individualTeamAwardsRepository.findByEmpId(empId);
+       List<TeamAwardsTMD> teamAwardsTMDList = new ArrayList<>();
+       for(IndividualTeamAwards individualTeamAwards : i)
+       {
+            int teamId = individualTeamAwards.getTeamId();
+            List<TeamAwardsTMD> teamAwardsTMDS = teamAwardsTMDRepository.findByTeamId(teamId);
+            for (TeamAwardsTMD x : teamAwardsTMDS)
+            {
+                teamAwardsTMDList.add(x);
+            }
+       }
+       return teamAwardsTMDList;
     }
 
 }
