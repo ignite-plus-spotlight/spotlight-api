@@ -3,14 +3,8 @@ package spring.spot.trial.Service;
 import org.apache.commons.collections.list.TransformedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spring.spot.trial.Entity.AwardToTeam;
-import spring.spot.trial.Entity.Employee;
-import spring.spot.trial.Entity.Team;
-import spring.spot.trial.Entity.TeamAwardsTMD;
-import spring.spot.trial.Repository.AwardToTeamRepository;
-import spring.spot.trial.Repository.EmployeeRepository;
-import spring.spot.trial.Repository.TeamAwardsTMDRepository;
-import spring.spot.trial.Repository.TeamRepository;
+import spring.spot.trial.Entity.*;
+import spring.spot.trial.Repository.*;
 import spring.spot.trial.dto.ManagerDTO;
 import spring.spot.trial.dto.TeamDTO;
 
@@ -32,11 +26,14 @@ public class TeamAwardsTMDService {
     @Autowired
     AwardToTeamRepository awardToTeamRepository;
 
+    @Autowired
+    IndividualTeamAwardsRepository individualTeamAwardsRepository;
+
     public TeamAwardsTMDService(TeamAwardsTMDRepository teamAwardsTMDRepository) {
         this.teamAwardsTMDRepository = teamAwardsTMDRepository;
     }
 
-    public TeamAwardsTMD createTeamAwards(String awardName, String awardedById, String periodName, int teamId, String teamName) {
+    public TeamAwardsTMD createTeamAwards(String awardName, String awardedById, String periodName, int teamId, String teamName, String headId) {
         Date d = new Date();
         TeamAwardsTMD team = new TeamAwardsTMD();
         AwardToTeam awardToTeam = awardToTeamRepository.findByAwardName(awardName);
@@ -54,6 +51,20 @@ public class TeamAwardsTMDService {
         team.setTeamName(teamName);
         team.setTeamPoints(teamPoints);
         team.setTimestamp(d);
+
+
+        Team t = teamRepository.findByManagerIdAndTeamId(headId,teamId);
+        List<String> members = t.getMembers();
+        for (String mid: members)
+        {
+            Date date = new Date();
+            IndividualTeamAwards individualTeamAwards = new IndividualTeamAwards();
+            individualTeamAwards.setEmpId(mid);
+            individualTeamAwards.setTeamId(teamId);
+            individualTeamAwards.setTimestamp(date);
+            individualTeamAwardsRepository.save(individualTeamAwards);
+        }
+
         return teamAwardsTMDRepository.save(team);
     }
 

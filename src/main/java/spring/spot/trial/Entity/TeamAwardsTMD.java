@@ -22,13 +22,16 @@ public class TeamAwardsTMD implements Serializable {
     @PrimaryKeyColumn(name = "team_id",ordinal = 1,type= PrimaryKeyType.PARTITIONED)
     public int teamId;
 
-    @PrimaryKeyColumn(name = "awarded_by_id",ordinal = 0, type = PrimaryKeyType.CLUSTERED)
+    @PrimaryKeyColumn(ordinal = 0,type = PrimaryKeyType.CLUSTERED)
+    private java.util.Date timestamp;
+
+    @Column("awarded_by_id")
     public String awardedById;
 
     @Column("period_name")
     public  String periodName;
 
-    @PrimaryKeyColumn(name = "award_name", ordinal = 1,type = PrimaryKeyType.CLUSTERED)
+    @Column("award_name")
     private String awardName;
 
     @Column("team_points")
@@ -39,9 +42,6 @@ public class TeamAwardsTMD implements Serializable {
 
     @Column
     private String description;
-
-    @Column
-    private java.util.Date timestamp;
 
     @Column
     private String imgsrc;

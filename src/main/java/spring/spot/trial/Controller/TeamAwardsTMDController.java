@@ -34,9 +34,9 @@ public class TeamAwardsTMDController {
     }
 
 
-    @PostMapping("/teammember/{teamId}/{teamName}/{awardedById}/{periodName}/{awardName}/teamawardstmd")
-    public TeamAwardsTMD createTeamAwards(@PathVariable("awardedById") String awardedById, @PathVariable("teamId") int teamId, @PathVariable("awardName") String awardName,@PathVariable("periodName") String periodName, @PathVariable("teamName") String teamName) {
-        return teamAwardsTMDService.createTeamAwards(awardName,awardedById,periodName,teamId,teamName);
+    @PostMapping("/teammember/{teamId}/{teamName}/{awardedById}/{periodName}/{awardName}/{headId}/teamawardstmd")
+    public TeamAwardsTMD createTeamAwards(@PathVariable("awardedById") String awardedById, @PathVariable("teamId") int teamId, @PathVariable("awardName") String awardName,@PathVariable("periodName") String periodName,@PathVariable("headId") String headId, @PathVariable("teamName") String teamName) {
+        return teamAwardsTMDService.createTeamAwards(awardName,awardedById,periodName,teamId,teamName,headId);
     }
 
     @PutMapping(value = "/teammember/{id}/teamawardstmd")
