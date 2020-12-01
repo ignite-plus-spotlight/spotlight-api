@@ -1,6 +1,5 @@
 package spring.spot.trial.Service;
 
-import org.apache.commons.collections.list.TransformedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.spot.trial.Entity.*;
@@ -29,10 +28,16 @@ public class TeamAwardsTMDService {
     @Autowired
     IndividualTeamAwardsRepository individualTeamAwardsRepository;
 
+    @Autowired
+    TeamAwardsDirectorRepository teamAwardsDirectorRepository;
+
+
+
     public TeamAwardsTMDService(TeamAwardsTMDRepository teamAwardsTMDRepository) {
         this.teamAwardsTMDRepository = teamAwardsTMDRepository;
     }
 
+    //post into teamawards and individual team awards table
     public TeamAwardsTMD createTeamAwards(String awardName, String awardedById, String periodName, int teamId, String teamName, String headId) {
         Date d = new Date();
         TeamAwardsTMD team = new TeamAwardsTMD();
@@ -52,8 +57,20 @@ public class TeamAwardsTMDService {
         team.setTeamPoints(teamPoints);
         team.setTimestamp(d);
 
-
         Team t = teamRepository.findByManagerIdAndTeamId(headId,teamId);
+        IndividualTeamAwards i = new IndividualTeamAwards();
+        i.setEmpId(headId);
+        i.setTeamId(teamId);
+        Date date1 = new Date();
+        i.setTimestamp(date1);
+        individualTeamAwardsRepository.save(i);
+
+        TeamAwardsDirector teamAwardsDirector = new TeamAwardsDirector();
+        teamAwardsDirector.setAwardedById(awardedById);
+        teamAwardsDirector.setTeamId(teamId);
+        teamAwardsDirector.setTimestamp(date1);
+        teamAwardsDirectorRepository.save(teamAwardsDirector);
+
         List<String> members = t.getMembers();
         for (String mid: members)
         {
@@ -68,6 +85,21 @@ public class TeamAwardsTMDService {
         return teamAwardsTMDRepository.save(team);
     }
 
+//get call for team awards history in director's dashboard
+    public List<TeamAwardsTMD> teamawardshistory(String id)
+    {
+        List<TeamAwardsTMD> teamAwardsTMDS = new ArrayList<>();
+        for(TeamAwardsDirector teamAwardsDirector : teamAwardsDirectorRepository.findByAwardedById(id))
+        {
+            int teamId = teamAwardsDirector.getTeamId();
+             for (TeamAwardsTMD teamAwardsTMD : teamAwardsTMDRepository.findByTeamId(teamId))
+             {
+                 teamAwardsTMDS.add(teamAwardsTMD);
+             }
+        }
+        return teamAwardsTMDS;
+    }
+
     public List<TeamAwardsTMD> getAllTeamAwards() {
         return teamAwardsTMDRepository.findAll();
     }
@@ -80,33 +112,7 @@ public class TeamAwardsTMDService {
         return teamAwardsTMDRepository.save(teamAwardsTMD);
     }
 
-    /*public ManagerDTO display(String id)
-    {
-        List<Employee> employee = employeeRepository.findByEmpId(id);
-        List<Team> team = teamRepository.findByManagerId(id);
-        List<String> teamMembers =  team.get(0).getMembers();
-        ManagerDTO managerDTO = new ManagerDTO();
-        List<TeamDTO> teamDTOS = new ArrayList<>();
-        for(String memberid : teamMembers)
-        {
-            TeamDTO teamDTO = new TeamDTO();
-            List<Team> teams = teamRepository.findByManagerId(memberid);
-            teamDTO.setTeamId(teams.get(0).getTeamId());
-            teamDTO.setTeamName(teams.get(0).getTeamName());
-            teamDTO.setHeadName((employeeRepository.findByEmpId(teams.get(0).getManagerId())).get(0).getFirstName());
-           List<String> memberids =  teams.get(0).getMembers();
-           List<Employee> reportee = new ArrayList<>();
-           for (String empId : memberids) {
-               reportee.add(employeeRepository.findByEmpId(empId).get(0));
-           }
-            teamDTO.setTeamMembers(reportee);
-           teamDTOS.add(teamDTO);
-        }
-        managerDTO.setEmployee(employeeRepository.findByEmpId(id).get(0));
-        managerDTO.setTeams(teamDTOS);
-        return managerDTO;
-    }*/
-
+    //to display teams under the managers under director (cards)
     public ManagerDTO display(String id)
     {
         List<Employee> employee = employeeRepository.findByEmpId(id);
@@ -136,6 +142,7 @@ public class TeamAwardsTMDService {
         return managerDTO;
     }
 
+    //to display the team awards in the dashboard
     public List<TeamAwardsTMD> displayTeamAwards(String empId)
     {
        List<IndividualTeamAwards> i = individualTeamAwardsRepository.findByEmpId(empId);
@@ -153,3 +160,4 @@ public class TeamAwardsTMDService {
     }
 
 }
+

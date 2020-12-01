@@ -58,4 +58,11 @@ public class TeamAwardsTMDController {
         return teamAwardsTMDService.displayTeamAwards(empId);
     }
 
+    //to get team awards history in director's dashboard
+    @GetMapping(value = "/teamawardshistory/{yourId}")
+    public List<TeamAwardsTMD> teamawardshistory(@PathVariable("yourId") String id)
+    {
+        return teamAwardsTMDService.teamawardshistory(id);
+    }
+
 }
